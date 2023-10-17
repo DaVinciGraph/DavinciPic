@@ -1,0 +1,149 @@
+body {
+	background-color: #f3f4f6;
+	margin: 0px;
+	text-align: center;
+	font-family: "Roboto", sans-serif;
+}
+
+a {
+	color: #6b7280;
+}
+
+.intro,
+.examples {
+	padding: 20px;
+	max-width: 800px;
+	margin: auto;
+	text-align: left;
+}
+
+.intro h1 {
+	font-size: 2rem;
+	margin-bottom: 20px;
+	color: #475569;
+}
+
+.intro h2,
+.intro h3 {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+	color: #475569;
+}
+
+.intro p,
+.intro ul {
+	font-size: 11pt;
+	color: #6b7280;
+}
+
+.intro ul {
+	margin: 0px 0px 20px 20px;
+	padding: 0px;
+}
+.intro ul li {
+	line-height: 24px;
+}
+
+/* examples */
+article {
+	margin: 80px auto;
+	max-width: 800px;
+	padding: 20px;
+	border-radius: 20px;
+	box-shadow: 0px 0px 3px #b6bac2;
+	background-color: #f9f9f9;
+}
+
+article h1 {
+	margin: 0px;
+	padding: 10px 0px;
+	font-size: 32pt;
+	color: #475569;
+}
+
+article main {
+	margin-top: 40px;
+}
+
+article main h4 {
+	margin-top: 80px;
+	font-size: 18pt;
+	color: #475569;
+}
+
+article main section:not(.banner) {
+	display: flex;
+	flex-direction: row;
+	gap: 20px 1%;
+	flex-wrap: wrap;
+	padding: 10px 0px;
+}
+
+article main section.banner {
+	display: flex;
+	flex-direction: column;
+	gap: 20px 1%;
+	padding: 10px 0px;
+}
+
+article main section:not(.banner) > div {
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	align-items: center;
+	gap: 10px;
+	width: 24%;
+}
+
+article main section > div > div {
+	width: 100%;
+	font-size: 10pt;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+@media only screen and (max-width: 800px) {
+	article main section:not(.banner) > div {
+		display: flex;
+		flex-direction: column;
+		justify-content: end;
+		align-items: center;
+		gap: 10px;
+		width: 32%;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	article main section:not(.banner) > div {
+		display: flex;
+		flex-direction: column;
+		justify-content: end;
+		align-items: center;
+		gap: 10px;
+		width: 49%;
+	}
+}
+
+/* copy */
+.copy_button {
+	position: relative;
+	margin: 0px 3px;
+	cursor: pointer;
+	background-color: transparent;
+	border: 0px;
+	padding: 0px;
+	line-height: auto;
+}
+
+.copy_button span {
+	position: absolute;
+	bottom: 110%;
+	left: -50%;
+	background-color: #f9f9f9;
+	color: #999;
+	padding: 2px 5px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 3px #999;
+}

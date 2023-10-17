@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "ESNext", // Emit the newest ECMAScript supported by TypeScript
+		"module": "ESNext", // Leave modules as-is
+		"jsx": "preserve", // Keep JSX as-is
+		"isolatedModules": false, // You can set it to false if you are emitting JS
+		"declaration": false, // Don't emit .d.ts files
+		"noEmit": false, // Enable JS emit
+		"removeComments": false, // Keep comments
+		"outDir": "./dist/davinciPics"
+	},
+	"include": ["src/davinciPics"]
+}
