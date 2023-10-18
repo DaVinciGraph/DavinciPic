@@ -28,7 +28,7 @@ export const finalizeSuccessfulWrappedData = (
 	failedPlaceholderColor: string,
 	failedPlaceholderPicture: string
 ) => {
-	remoteData.originalToken.title = remoteData.originalToken.title || options.dataTitle || "";
+	remoteData.originalToken.title = remoteData.title || remoteData.originalToken.title || options.dataTitle || "";
 	remoteData.originalToken.pic = finalSuccessfulPictureUrl(remoteData.originalToken.pic, options.dataContextPicUrl, failedPlaceholderPicture);
 	remoteData.originalToken.supportingBackgroundColor = finalSuccessfulBgColor(
 		remoteData.originalToken.supportingBackgroundColor,
