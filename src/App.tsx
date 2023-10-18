@@ -41,16 +41,16 @@ function App() {
 					elements align with the specific needs of your application.
 				</p>
 				<h3>Supported Entity Types</h3>
-				<p>As you may already know, the DavinciPics API provides support for six distinct types of Hedera entities:</p>
+				<p>As you may already know, the DavinciPics API provides support for five distinct types of entities:</p>
 				<ul>
 					<li>
 						<a href="#token">Tokens</a>
 					</li>
 					<li>
-						<a href="#profile">Profile Pictures</a>
+						<a href="#profile">Profile Pictures (of an Account)</a>
 					</li>
 					<li>
-						<a href="#banner">Banners</a>
+						<a href="#banner">Banners (of an Account)</a>
 					</li>
 					<li>
 						<a href="#node">Nodes</a>
