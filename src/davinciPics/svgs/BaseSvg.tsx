@@ -12,7 +12,6 @@ const GenerateBaseSVG: React.FC<{
 	status: DavinciPicStatus;
 }> = ({ title, pictureUrl, sensitivity, supportingBackgroundColor, options, status }): React.ReactElement => {
 	const uniqueID = `${++davinciPicsConfig.counter}`;
-	console.log(options.censor, sensitivity);
 	const mustPictureBeSensored = mustBeSensored(options.censor, sensitivity);
 	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
 
