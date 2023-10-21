@@ -13,7 +13,7 @@ const GenerateWrappedTokenSVG: React.FC<{
 		<GenerateContextualTokenSVG
 			title={data.originalToken?.title}
 			pictureUrl={data.originalToken?.pic}
-			sensitivity={data.sensitivity}
+			sensitivity={data.originalToken?.sensitivity}
 			contextSupportingBackgroundColor={contextData.supportingBackgroundColor}
 			supportingBackgroundColor={data.originalToken.supportingBackgroundColor}
 			contextTitle={contextData.title}

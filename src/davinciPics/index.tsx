@@ -136,6 +136,7 @@ DavinciPic.defaultProps = {
 	contextPosition: "bottomRight",
 	loadingEffect: "transparent",
 	failureEffect: "placeholder",
+	lpTokensPosition: "intersected",
 };
 
 export default DavinciPic;

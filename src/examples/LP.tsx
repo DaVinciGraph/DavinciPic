@@ -55,6 +55,7 @@ export const LPExamples = () => {
 							network="hedera"
 							address={invalidAddress(exampleData.lpToken)}
 							context="network"
+							offlineMode
 							size={64}
 							dataTitle="Alternative Title for token0|Alternative Title for token 1"
 							dataPicUrl={`${exampleData.alternativePic}|${exampleData.alternativePic2}`}
@@ -62,26 +63,47 @@ export const LPExamples = () => {
 							dataContextPicUrl={exampleData.alternativePic}
 						/>
 					</CopySnippet>
-					<CopySnippet title="Green Stroke 4px">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} size={64} strokeWidth={4} strokeColor="green" />
+					<CopySnippet title="Intimate Position">
+						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} context="app" size={64} lpTokensPosition="intimate" />
 					</CopySnippet>
-					<CopySnippet title="Different Context position">
+					<CopySnippet title="Merged Position">
+						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} context="app" size={64} lpTokensPosition="merged" />
+					</CopySnippet>
+					<CopySnippet title="Merged Position Without Context">
 						<DavinciPic
 							type="token"
 							network="hedera"
 							address={exampleData.lpToken}
+							complexTokenType="lp"
+							context="none"
 							size={64}
-							context="app"
-							contextPosition="topLeft"
-							strokeWidth={4}
-							strokeColor="green"
+							lpTokensPosition="merged"
 						/>
+					</CopySnippet>
+					<CopySnippet title="Green Stroke 4px">
+						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} size={64} strokeWidth={4} strokeColor="green" />
+					</CopySnippet>
+					<CopySnippet title="Different Context position">
+						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} size={64} context="app" contextPosition="topLeft" />
 					</CopySnippet>
 					<CopySnippet title="Size 100px">
 						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} size={100} />
 					</CopySnippet>
 					<CopySnippet title="Size 20px">
 						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} size={20} />
+					</CopySnippet>
+					<CopySnippet title="Censored">
+						<DavinciPic type="token" network="hedera" address="TestLiquidity" censor="inappropriate" size={64} />
+					</CopySnippet>
+					<CopySnippet title="Censored">
+						<DavinciPic
+							type="token"
+							network="hedera"
+							address="TestLiquidity"
+							lpTokensPosition="merged"
+							censor="inappropriate"
+							size={64}
+						/>
 					</CopySnippet>
 				</section>
 
@@ -128,6 +150,7 @@ export const LPExamples = () => {
 							type="token"
 							network="hedera"
 							address={exampleData.lpToken}
+							lpTokensPosition="intimate"
 							complexTokenType="lp"
 							context="network"
 							size={64}
@@ -154,6 +177,20 @@ export const LPExamples = () => {
 							network="hedera"
 							address={exampleData.lpToken}
 							complexTokenType="lp"
+							context="network"
+							size={64}
+							placeholder={"exclamationMarkDark"}
+							loadingEffect={"placeholder"}
+							delayResponseTime={50000}
+						/>
+					</CopySnippet>
+					<CopySnippet title="Default Exclamation Mark Dark & Merged">
+						<DavinciPic
+							type="token"
+							network="hedera"
+							address={exampleData.lpToken}
+							complexTokenType="lp"
+							lpTokensPosition="merged"
 							context="network"
 							size={64}
 							placeholder={"exclamationMarkDark"}
@@ -210,6 +247,20 @@ export const LPExamples = () => {
 							delayResponseTime={50000}
 						/>
 					</CopySnippet>
+					<CopySnippet title="Default & merged">
+						<DavinciPic
+							type="token"
+							network="hedera"
+							address={exampleData.lpToken}
+							complexTokenType="lp"
+							lpTokensPosition="merged"
+							context="network"
+							size={64}
+							placeholder={"default"}
+							loadingEffect={"pulse:placeholder"}
+							delayResponseTime={50000}
+						/>
+					</CopySnippet>
 				</section>
 
 				<h4>Failure Effects </h4>
@@ -243,6 +294,7 @@ export const LPExamples = () => {
 							type="token"
 							network="hedera"
 							address={invalidAddress(exampleData.lpToken)}
+							lpTokensPosition="merged"
 							complexTokenType="lp"
 							size={64}
 							placeholder={"#ccc"}
@@ -256,6 +308,7 @@ export const LPExamples = () => {
 							type="token"
 							network="hedera"
 							address={invalidAddress(exampleData.lpToken)}
+							lpTokensPosition="intimate"
 							complexTokenType="lp"
 							size={64}
 							placeholder={"randomColor"}
@@ -296,6 +349,20 @@ export const LPExamples = () => {
 							network="hedera"
 							address={invalidAddress(exampleData.lpToken)}
 							complexTokenType="lp"
+							size={64}
+							placeholder={"url(https://res.cloudinary.com/dq7dgsuu8/image/upload/v1684562031/icons/hedera_token_64_lhaycq.png)"}
+							failureEffect={"placeholder"}
+							loadingEffect={"pulse:#ccc"}
+							delayResponseTime={3000}
+						/>
+					</CopySnippet>
+					<CopySnippet title="Custom Url & Merged">
+						<DavinciPic
+							type="token"
+							network="hedera"
+							address={invalidAddress(exampleData.lpToken)}
+							complexTokenType="lp"
+							lpTokensPosition="merged"
 							size={64}
 							placeholder={"url(https://res.cloudinary.com/dq7dgsuu8/image/upload/v1684562031/icons/hedera_token_64_lhaycq.png)"}
 							failureEffect={"placeholder"}

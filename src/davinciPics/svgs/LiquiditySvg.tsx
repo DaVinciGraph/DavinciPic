@@ -3,69 +3,80 @@ import { davinciPicsConfig } from "../";
 import { getContextData, mustBeSensored } from "../modules/helpers";
 import { DavinciPicStatus, DavinciPicTokenProps } from "../types/props";
 import { DavinciPicsSvgCircle } from "../types/svg";
+import GenerateMergedLiquidityTokenSVG from "./MergedLiquiditySvg";
 
 const GenerateLiquidityTokenSVG: React.FC<{
 	data: LpTokenEntity;
 	options: DavinciPicTokenProps;
 	status: DavinciPicStatus;
 }> = ({ data, options, status }): React.ReactElement => {
-	const mustPicture0BeSensored = mustBeSensored(options.censor, data.token0.sensitivity);
-	const mustPicture1BeSensored = mustBeSensored(options.censor, data.token1.sensitivity);
-	const uniqueID = `${++davinciPicsConfig.counter}`;
+	if (options.lpTokensPosition === "merged") {
+		return <GenerateMergedLiquidityTokenSVG data={data} options={options} status={status} />;
+	} else {
+		const mustPicture0BeSensored = mustBeSensored(options.censor, data.token0.sensitivity);
+		const mustPicture1BeSensored = mustBeSensored(options.censor, data.token1.sensitivity);
+		const uniqueID = `${++davinciPicsConfig.counter}`;
 
-	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
-	const token0CircleData = { cx: 32.5, cy: 50, r: 25 };
-	const token1CircleData = { cx: 67.5, cy: 50, r: 25 };
-	const contextCircleData = getContextCircleData({ options, token0CircleData, token1CircleData, strokeWidth });
-	const contextData = getContextData(options, data);
+		const contextData = getContextData(options, data);
 
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			xmlnsXlink="http://www.w3.org/1999/xlink"
-			version="1.1"
-			width={options.size}
-			height={options.size}
-			viewBox="0 0 100 100">
-			<Defs
-				uniqueID={uniqueID}
-				token0CircleData={token0CircleData}
-				token1CircleData={token1CircleData}
-				contextCircleData={contextCircleData}
-				mustPicture0BeSensored={mustPicture0BeSensored}
-				mustPicture1BeSensored={mustPicture1BeSensored}
-			/>
+		const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
 
-			<Token0
-				circleData={token0CircleData}
-				data={data}
-				uniqueID={uniqueID}
-				censor={mustPicture0BeSensored}
-				strokeWidth={strokeWidth}
-				strokeColor={options.strokeColor}
-				status={status}
-			/>
+		const [token0CircleData, token1CircleData] = calculateCircleData(
+			contextData.type !== "none",
+			options.lpTokensPosition === "intimate",
+			strokeWidth
+		);
 
-			<Token1
-				circleData={token1CircleData}
-				data={data}
-				uniqueID={uniqueID}
-				censor={mustPicture1BeSensored}
-				strokeWidth={strokeWidth}
-				strokeColor={options.strokeColor}
-				status={status}
-			/>
+		const contextCircleData = getContextCircleData({ options, token0CircleData, token1CircleData, strokeWidth });
 
-			<Context
-				circleData={contextCircleData}
-				data={contextData}
-				uniqueID={uniqueID}
-				strokeWidth={strokeWidth}
-				strokeColor={options.strokeColor}
-				status={status}
-			/>
-		</svg>
-	);
+		return (
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				xmlnsXlink="http://www.w3.org/1999/xlink"
+				version="1.1"
+				width={options.size}
+				height={options.size}
+				viewBox="0 0 100 100">
+				<Defs
+					uniqueID={uniqueID}
+					token0CircleData={token0CircleData}
+					token1CircleData={token1CircleData}
+					contextCircleData={contextCircleData}
+					mustPicture0BeSensored={mustPicture0BeSensored}
+					mustPicture1BeSensored={mustPicture1BeSensored}
+				/>
+
+				<Token0
+					circleData={token0CircleData}
+					data={data}
+					uniqueID={uniqueID}
+					censor={mustPicture0BeSensored}
+					strokeWidth={strokeWidth}
+					strokeColor={options.strokeColor}
+					status={status}
+				/>
+
+				<Token1
+					circleData={token1CircleData}
+					data={data}
+					uniqueID={uniqueID}
+					censor={mustPicture1BeSensored}
+					strokeWidth={strokeWidth}
+					strokeColor={options.strokeColor}
+					status={status}
+				/>
+
+				<Context
+					circleData={contextCircleData}
+					data={contextData}
+					uniqueID={uniqueID}
+					strokeWidth={strokeWidth}
+					strokeColor={options.strokeColor}
+					status={status}
+				/>
+			</svg>
+		);
+	}
 };
 
 export default GenerateLiquidityTokenSVG;
@@ -132,12 +143,7 @@ const Token0 = ({
 			{status === "failed" && data.token0.pic ? (
 				<></>
 			) : (
-				<circle
-					cx={circleData.cx}
-					cy={circleData.cy}
-					r={circleData.r - strokeWidth / 2}
-					fill={data.token0.supportingBackgroundColor || "transparent"}
-				/>
+				<circle cx={circleData.cx} cy={circleData.cy} r={circleData.r} fill={data.token0.supportingBackgroundColor || "transparent"} />
 			)}
 			<image
 				x={circleData.cx - circleData.r}
@@ -149,7 +155,7 @@ const Token0 = ({
 				preserveAspectRatio="xMidYMid slice"
 				href={data.token0.pic || ""}></image>
 			<circle cx={circleData.cx} cy={circleData.cy} r={circleData.r} fill="transparent" stroke={strokeColor || ""} strokeWidth={strokeWidth}>
-				<title>{data.token0.title || data.token0.address}</title>
+				{!censor ? <title>{data.token0.title || data.token0.address}</title> : <></>}
 			</circle>
 		</>
 	);
@@ -177,12 +183,7 @@ const Token1 = ({
 			{status === "failed" && data.token1.pic ? (
 				<></>
 			) : (
-				<circle
-					cx={circleData.cx}
-					cy={circleData.cy}
-					r={circleData.r - strokeWidth / 2}
-					fill={data.token1.supportingBackgroundColor || "transparent"}
-				/>
+				<circle cx={circleData.cx} cy={circleData.cy} r={circleData.r} fill={data.token1.supportingBackgroundColor || "transparent"} />
 			)}
 			<image
 				x={circleData.cx - circleData.r}
@@ -194,7 +195,7 @@ const Token1 = ({
 				preserveAspectRatio="xMidYMid slice"
 				href={data.token1.pic || ""}></image>
 			<circle cx={circleData.cx} cy={circleData.cy} r={circleData.r} fill="transparent" stroke={strokeColor} strokeWidth={strokeWidth}>
-				<title>{data?.token1?.title || data?.token1?.address}</title>
+				{!censor ? <title>{data?.token1?.title || data?.token1?.address}</title> : <></>}
 			</circle>
 		</>
 	);
@@ -222,7 +223,7 @@ const Context = ({
 			{status === "failed" && data.pic ? (
 				<></>
 			) : (
-				<circle cx={circleData.cx} cy={circleData.cy} r={circleData.r - strokeWidth / 2} fill={data.supportingBackgroundColor} />
+				<circle cx={circleData.cx} cy={circleData.cy} r={circleData.r} fill={data.supportingBackgroundColor} />
 			)}
 			<image
 				x={circleData.cx - circleData.r}
@@ -251,16 +252,48 @@ const getContextCircleData = ({
 	token0CircleData: DavinciPicsSvgCircle;
 	strokeWidth: number;
 }) => {
-	const contextRadius = 12.5;
+	const contextRadius = token1CircleData.r / 2;
 	return {
 		r: contextRadius,
 		cx:
 			options.contextPosition === "bottomRight" || options.contextPosition === "topRight"
-				? token1CircleData.cx + token1CircleData.r / 2 + contextRadius / 2 - strokeWidth / 2
-				: token0CircleData.cx - token0CircleData.r / 2 - contextRadius / 2 + strokeWidth / 2,
+				? token1CircleData.cx + token1CircleData.r - contextRadius / 2 - strokeWidth / 2
+				: token0CircleData.cx - token0CircleData.r + contextRadius / 2 + strokeWidth / 2,
 		cy:
 			options.contextPosition === "bottomRight" || options.contextPosition === "bottomLeft"
-				? token1CircleData.cy + token1CircleData.r / 2 + contextRadius / 2 - strokeWidth / 2
-				: token0CircleData.cy - token0CircleData.r / 2 - contextRadius / 2 + strokeWidth / 2,
+				? token1CircleData.cy + token1CircleData.r - contextRadius / 2 - strokeWidth / 2
+				: token0CircleData.cy - token0CircleData.r + contextRadius / 2 + strokeWidth / 2,
 	};
 };
+
+function calculateCircleData(hasContext: boolean, intimateLp: boolean, strokeWidth: number): [DavinciPicsSvgCircle, DavinciPicsSvgCircle] {
+	const token0CircleData: DavinciPicsSvgCircle = { cx: 30, cy: 50, r: 30 };
+	const token1CircleData: DavinciPicsSvgCircle = { cx: 70, cy: 50, r: 30 };
+
+	if (hasContext) {
+		if (intimateLp) {
+			token0CircleData.cx = 36;
+			token0CircleData.r = 29;
+
+			token1CircleData.cx = 63;
+			token1CircleData.r = 29;
+		} else {
+			token0CircleData.cx = 32;
+			token0CircleData.r = 25;
+
+			token1CircleData.cx = 68;
+			token1CircleData.r = 25;
+		}
+	} else if (intimateLp) {
+		token0CircleData.cx = 35;
+		token0CircleData.r = 35;
+
+		token1CircleData.cx = 65;
+		token1CircleData.r = 35;
+	}
+
+	token0CircleData.r = token0CircleData.r - strokeWidth / 2;
+	token1CircleData.r = token1CircleData.r - strokeWidth / 2;
+
+	return [token0CircleData, token1CircleData];
+}

@@ -50,7 +50,7 @@ const PicsSvgGenerator: React.FC<{
 					title={data.title || ""}
 					pictureUrl={data.pic || ""}
 					supportingBackgroundColor={data.supportingBackgroundColor}
-					sensitivity="safe"
+					sensitivity={data.sensitivity}
 					options={options}
 					status={status}
 				/>

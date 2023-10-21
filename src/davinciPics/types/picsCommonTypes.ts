@@ -10,6 +10,9 @@ export const picsContextTypes = ["none", "app", "network"];
 export type PicsContextPositionType = "topRight" | "topLeft" | "bottomRight" | "bottomLeft";
 export const picsContextPositionTypes = ["topRight", "topLeft", "bottomRight", "bottomLeft"];
 
+export type PicsLpTokensPositionType = "intersected" | "intimate" | "merged";
+export const picsLpTokensPositionTypes = ["intersected", "intimate", "merged"];
+
 export type PicsShapeType = "circle" | "square" | "smoothSquare";
 export const picsShapeTypes = ["circle", "square", "smoothSquare"];
 

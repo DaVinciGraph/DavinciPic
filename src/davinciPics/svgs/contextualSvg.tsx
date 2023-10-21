@@ -28,7 +28,7 @@ const GenerateContextualTokenSVG: React.FC<{
 	const uniqueID = `clip-${++davinciPicsConfig.counter}`;
 	const mustPictureBeSensored = mustBeSensored(options.censor, sensitivity);
 	const tokenCircle: DavinciPicsSvgCircle = { cx: 50, cy: 50, r: 40 };
-	const contextCircle = getContextCircleData(options, tokenCircle);
+	const contextCircle = getContextualContextCircleData(options, tokenCircle);
 	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
 
 	return (
@@ -52,7 +52,7 @@ const GenerateContextualTokenSVG: React.FC<{
 				status={status}
 			/>
 
-			<Context
+			<ContextualContextShapes
 				options={options}
 				contextCircle={contextCircle}
 				uniqueID={uniqueID}
@@ -136,13 +136,13 @@ const Token = ({
 				href={pictureUrl || ""}
 			/>
 			<circle cx={circle.cx} cy={circle.cy} r={circle.r} fill="transparent" stroke={strokeColor} strokeWidth={strokeWidth}>
-				<title>{title}</title>
+				{!mustPictureBeSensored ? <title>{title}</title> : <></>}
 			</circle>
 		</>
 	);
 };
 
-const Context = ({
+export const ContextualContextShapes = ({
 	options,
 	contextCircle,
 	uniqueID,
@@ -191,7 +191,7 @@ const Context = ({
 	);
 };
 
-const getContextCircleData = (options: DavinciPicTokenProps, tokenCircle: DavinciPicsSvgCircle) => {
+export const getContextualContextCircleData = (options: DavinciPicTokenProps, tokenCircle: DavinciPicsSvgCircle) => {
 	const strokeWidth = options.strokeWidth || 0;
 	const contextCircleRadius = 20;
 	return {

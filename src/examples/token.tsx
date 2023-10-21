@@ -53,6 +53,9 @@ export const TokenExamples = () => {
 					<CopySnippet title="Smooth Square Shape">
 						<DavinciPic type="token" network="hedera" address={exampleData.simpleToken} shape="smoothSquare" size={64} />
 					</CopySnippet>
+					<CopySnippet title="Censored Inappropriate">
+						<DavinciPic type="token" network="arbitrum" address="TestCurrency1" censor="inappropriate" size={64} />
+					</CopySnippet>
 				</section>
 
 				<h4>Loading Effects</h4>

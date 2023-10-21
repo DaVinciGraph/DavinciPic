@@ -1,6 +1,6 @@
 # Introduction
 
-The `DavinciPic` react component is designed to securely and effortlessly interface with the DavinciPic API. It fetches and displays images of Hedera-based entities, such as tokens, accounts, nodes, as well as logos for other networks and dApps. To make it easier for users, these entities are loaded simply by specifying their network and address as attributes to the component. Additionally, it showcases liquidity pool (LP) and wrapped tokens when relevant references are available. Given that this component could be integrated into security-sensitive applications like digital wallets, it ensures secure data handling within the HTML. The component also offers a range of attributes for extensive customization. To optimize performance, it activates only when it enters the viewport, utilizing an intersection with a vertical margin of 200 pixels.
+The `DavinciPic` react component is designed to securely and effortlessly interface with the DavinciPic API. It fetches and displays images of Hedera-based entities, such as tokens, accounts, nodes, as well as logos for other networks and dApps. To make it easier for users, these entities are loaded simply by specifying their network and address as props to the component. Additionally, it showcases liquidity pool (LP) and wrapped tokens when relevant references are available. Given that this component could be integrated into security-sensitive applications like digital wallets, it ensures secure data handling within the HTML. The component also offers a range of props for extensive customization. To optimize performance, it activates only when it enters the viewport, utilizing an intersection with a vertical margin of 200 pixels.
 
 ### Live Examples
 
@@ -68,37 +68,38 @@ Define the type, specify the network and address, you are good to go.
 
 <br/>
 
-# Attributes
+# Props
 
 mandatory fields are marked by asterisk symbol:
 
-| Attribute         | Type                                                | Applying to                         |
-| ----------------- | --------------------------------------------------- | ----------------------------------- |
-| type\*            | [PicsType](#picstype)                               | All                                 |
-| network\*         | string                                              | All except type "app"               |
-| address\*         | string                                              | All except type "network" and "app" |
-| name\*            | string                                              | Only applies to type "app"          |
-| dataTitle         | string                                              | All                                 |
-| dataPicUrl        | string                                              | All                                 |
-| context           | [PicsContextType](#picscontexttype)                 | Only applies to type "token"        |
-| contextPosition   | [PicsContextPositionType](#picscontextpositiontype) | Only applies to type "token"        |
-| dataContextTitle  | string                                              | only applies to type "token"        |
-| dataContextPicUrl | string                                              | only applies to type "token"        |
-| complexTokenType  | "lp" or "wrapped"                                   | only applies to type "token"        |
-| offlineMode       | boolean                                             | All                                 |
-| size              | number                                              | All except type "banner"            |
-| shape             | [PicsShapeType](#picsshapetype)                     | Has no effect of complex tokens     |
-| strokeWidth       | number                                              | All except type "banner"            |
-| strokeColor       | string                                              | All except type "banner"            |
-| placeholder       | string                                              | All                                 |
-| loadingEffect     | string                                              | All                                 |
-| failureEffect     | string                                              | All                                 |
-| censor            | [PicsSensitivityType](#picssensitivitytype)         | All                                 |
-| delayResponseTime | number                                              | All                                 |
+| Prop               | Type                                                  | Applying to                         |
+| ------------------ | ----------------------------------------------------- | ----------------------------------- |
+| type\*             | [PicsType](#picstype)                                 | All                                 |
+| network\*          | string                                                | All except type "app"               |
+| address\*          | string                                                | All except type "network" and "app" |
+| name\*             | string                                                | Only applies to type "app"          |
+| dataTitle          | string                                                | All                                 |
+| dataPicUrl         | string                                                | All                                 |
+| context            | [PicsContextType](#picscontexttype)                   | Only applies to type "token"        |
+| contextPosition    | [PicsContextPositionType](#picscontextpositiontype)   | Only applies to type "token"        |
+| dataContextTitle   | string                                                | only applies to type "token"        |
+| dataContextPicUrl  | string                                                | only applies to type "token"        |
+| complexTokenType   | "lp" or "wrapped"                                     | only applies to type "token"        |
+| lp-tokens-position | [PicsLpTokensPositionType](#picslptokenspositiontype) | only applies to type "token"        |
+| offlineMode        | boolean                                               | All                                 |
+| size               | number                                                | All except type "banner"            |
+| shape              | [PicsShapeType](#picsshapetype)                       | Has no effect of complex tokens     |
+| strokeWidth        | number                                                | All except type "banner"            |
+| strokeColor        | string                                                | All except type "banner"            |
+| placeholder        | string                                                | All                                 |
+| loadingEffect      | string                                                | All                                 |
+| failureEffect      | string                                                | All                                 |
+| censor             | [PicsSensitivityType](#picssensitivitytype)           | All                                 |
+| delayResponseTime  | number                                                | All                                 |
 
 ## type
 
-The type attribute specifies the kind of entity that the DavinciPic component should load. It accepts one of several predefined string values, each corresponding to a different type of entity.
+The type prop specifies the kind of entity that the DavinciPic component should load. It accepts one of several predefined string values, each corresponding to a different type of entity.
 
 ### Accepted Values:
 
@@ -109,21 +110,21 @@ The type attribute specifies the kind of entity that the DavinciPic component sh
 **network:** Chooses an image that represents an entire network, such as a Hedera.<br/>
 **app:** Selects an application's logo.
 
-By setting the type attribute, you instruct the `DavinciPic` component on what kind of image it should load and display.
+By setting the type prop, you instruct the `DavinciPic` component on what kind of image it should load and display.
 
 ## network
 
-The network attribute identifies the blockchain or network to which the entity belongs. It accepts string values representing well-known networks such as "hedera", "ethereum", or "binance".
+The network prop identifies the blockchain or network to which the entity belongs. It accepts string values representing well-known networks such as "hedera", "ethereum", or "binance".
 
 ### Applicability:
 
-This attribute is applicable to all entity types except for "app", as apps are considered network-agnostic. In other words, when the type attribute is set to "app", the network attribute will not have any effect.
+This prop is applicable to all entity types except for "app", as apps are considered network-agnostic. In other words, when the type prop is set to "app", the network prop will not have any effect.
 
-By specifying the network attribute, you can ensure that the DavinciPic component loads the correct entity belonging to the designated network.
+By specifying the network prop, you can ensure that the DavinciPic component loads the correct entity belonging to the designated network.
 
 ## address
 
-The address attribute specifies the unique identifier for the entity, conforming to the address format of the specified network. Here's how different network addresses can be represented:
+The address prop specifies the unique identifier for the entity, conforming to the address format of the specified network. Here's how different network addresses can be represented:
 
 **Hedera:** Addresses are typically in the format "0.0.x", where x is a number.<br/>
 **Ethereum:** Addresses usually start with "0x" followed by a series of alphanumeric characters.<br/>
@@ -141,7 +142,7 @@ The address attribute specifies the unique identifier for the entity, conforming
 
 ## name
 
-The `name` attribute is specifically designed for use when the `type` attribute is set to `app`. It serves as an identifier to fetch the appropriate entity from the API. The value you provide for name will be used in the API request to uniquely identify and retrieve the corresponding app entity. This attribute is ignored for other types of entities.
+The `name` prop is specifically designed for use when the `type` prop is set to `app`. It serves as an identifier to fetch the appropriate entity from the API. The value you provide for name will be used in the API request to uniquely identify and retrieve the corresponding app entity. This prop is ignored for other types of entities.
 
 ```HTML
 <DavinciPic type="app" name="saucerswap"></DavinciPic>
@@ -150,14 +151,14 @@ The `name` attribute is specifically designed for use when the `type` attribute 
 
 ## dataTitle
 
-The `dataTitle` attribute allows you to manually set a title that appears when the user hovers over the element. This alternative title will only be used if the returned entity lacks an associated title.
+The `dataTitle` prop allows you to manually set a title that appears when the user hovers over the element. This alternative title will only be used if the returned entity lacks an associated title.
 
 **For single tokens or entities:** You can provide a single title.<br/>
 **For LP (Liquidity Provider) tokens:** If you know the token is an LP token comprised of two different assets, you can provide both titles separated by a pipe symbol (|).
 
 ## dataPicUrl
 
-The dataPicUrl attribute allows you to provide an alternative image URL for the entity displayed. This alternative image will only be used if the returned entity lacks an associated picture.
+The dataPicUrl prop allows you to provide an alternative image URL for the entity displayed. This alternative image will only be used if the returned entity lacks an associated picture.
 
 **For individual entities or tokens:** Supply the URL of the backup image.<br/>
 **For LP (Liquidity Provider) tokens:** If you know that the token is a liquidity provider token composed of two different assets, you can specify both image URLs, separated by a pipe symbol (|).
@@ -169,7 +170,7 @@ The dataPicUrl attribute allows you to provide an alternative image URL for the 
 
 ## context
 
-The context attribute is used exclusively when the type attribute is set to "token." It specifies what kind of additional image should accompany the main token image as a smaller circle. This attribute accepts one of three specific values:
+The context prop is used exclusively when the type prop is set to "token." It specifies what kind of additional image should accompany the main token image as a smaller circle. This prop accepts one of three specific values:
 
 **"network":** If set, a smaller circle displaying the network logo (e.g., Hedera, Ethereum) will appear beside the primary token image.<br/>
 **"app":** If set, the smaller circle will show the logo or icon of the application associated with the token.<br/>
@@ -179,9 +180,9 @@ The smaller circle provides a visual cue, giving more information about the orig
 
 ## contextPosition
 
-The contextPosition attribute allows you to specify the location of the context picture within the main picture frame. This attribute is particularly useful when you want to control the placement of the additional contextual image (like a network or app logo) relative to the main token image.
+The contextPosition prop allows you to specify the location of the context picture within the main picture frame. This prop is particularly useful when you want to control the placement of the additional contextual image (like a network or app logo) relative to the main token image.
 
-Accepted values for this attribute are:
+Accepted values for this prop are:
 
 **"bottomRight":** Places the context picture at the bottom-right corner of the main picture frame.<br/>
 **"bottomLeft":** Places the context picture at the bottom-left corner of the main picture frame.<br/>
@@ -190,31 +191,45 @@ Accepted values for this attribute are:
 
 ## dataContextTitle
 
-The `dataContextTitle` attribute functions similarly to the `dataTitle` attribute, but it specifically applies to the context title. This means that the title specified using `dataContextTitle` will appear as a tooltip when the user hovers their cursor over the smaller context picture, such as a network or app logo.
+The `dataContextTitle` prop functions similarly to the `dataTitle` prop, but it specifically applies to the context title. This means that the title specified using `dataContextTitle` will appear as a tooltip when the user hovers their cursor over the smaller context picture, such as a network or app logo.
 
 This can be useful for providing additional information or clarification about the context of the token, especially when the image alone may not convey the full meaning.
 
 ## dataContextPicUrl
 
-The `dataContextPicUrl` attribute serves a similar purpose to the `dataPicUrl` attribute, but it specifically targets the context picture. If you have a local image that you'd like to display as the context picture (e.g., a network or app logo), you can specify its URL using this attribute. This way, the specified image will be loaded as the context picture if the API doesn't provide one.
+The `dataContextPicUrl` prop serves a similar purpose to the `dataPicUrl` prop, but it specifically targets the context picture. If you have a local image that you'd like to display as the context picture (e.g., a network or app logo), you can specify its URL using this prop. This way, the specified image will be loaded as the context picture if the API doesn't provide one.
 
 ## complexTokenType
 
-The `complexTokenType` attribute allows you to explicitly specify the type of a complex token, which could either be a Liquidity Pool (LP) token or a Wrapped token. This is particularly useful for customizing the loading and failure templates of the component, as the actual type of complex tokens is generally not known until the API response is received. Acceptable values for this attribute are `lp` for Liquidity Pool tokens and `wrapped` for Wrapped tokens.
+The `complexTokenType` prop allows you to explicitly specify the type of a complex token, which could either be a Liquidity Pool (LP) token or a Wrapped token. This is particularly useful for customizing the loading and failure templates of the component, as the actual type of complex tokens is generally not known until the API response is received. Acceptable values for this prop are `lp` for Liquidity Pool tokens and `wrapped` for Wrapped tokens.
 
-By setting this attribute, you can ensure that the loading and failure templates are appropriately tailored even before the API response arrives.
+By setting this prop, you can ensure that the loading and failure templates are appropriately tailored even before the API response arrives.
+
+## lpTokensPosition
+
+This prop controls the positioning of the liquidity pair (LP) tokens' logos in the display. It accepts three values:
+
+**intersected (Default):** This option displays the two token logos beside each other with standard spacing.
+
+**intimate:** This option brings the two token logos closer together. Useful when you want to display LP tokens in a more compact space.
+
+**merged:** This merges both tokens into a single circle, divided down the middle. One side will display the token0 picture, and the other side will display the token1 picture.
+
+### Note on Small Display Sizes:
+
+For smaller display sizes where visibility of individual tokens may become an issue, options like intimate and merged can be especially useful. The closer positioning or merging of the token logos allows for a larger display size for each, thereby improving visibility.
 
 ## offlineMode
 
-The `offlineMode` attribute enables the component to operate without making any API calls. When this mode is activated, the component will immediately load any alternative data provided via other attributes, such as `dataPicUrl` or `dataTitle`, without attempting to fetch data from the API.
+The `offlineMode` prop enables the component to operate without making any API calls. When this mode is activated, the component will immediately load any alternative data provided via other props, such as `dataPicUrl` or `dataTitle`, without attempting to fetch data from the API.
 
 ## size
 
-The size attribute sets the dimensions of the image, rendering it as a square. The value should be specified in pixels, such as "48". By default, the size is set to "100" pixels. This attribute is not applicable when the type is set to "banner."
+The size prop sets the dimensions of the image, rendering it as a square. The value should be specified in pixels, such as "48". By default, the size is set to "100" pixels. This prop is not applicable when the type is set to "banner."
 
 ## shape
 
-The shape attribute allows you to define the geometric form of the displayed picture. Accepted values include:
+The shape prop allows you to define the geometric form of the displayed picture. Accepted values include:
 
 **circle:** Renders the picture in a circular shape.<br/>
 **square:** Displays the picture as a square with sharp corners.<br/>
@@ -224,11 +239,11 @@ The shape attribute allows you to define the geometric form of the displayed pic
 
 ## `strokeWidth` and `strokeColor`
 
-These attributes control the stroke appearance around the shape involved in the image. The `strokeWidth` attribute specifies the width of the stroke in pixels, while the `strokeColor` attribute defines its color. Note that these attributes do not apply when the type is set to `banner`. Also they won't affect during loading phase or failed scenarios.
+These props control the stroke appearance around the shape involved in the image. The `strokeWidth` prop specifies the width of the stroke in pixels, while the `strokeColor` prop defines its color. Note that these props do not apply when the type is set to `banner`. Also they won't affect during loading phase or failed scenarios.
 
 ## placeholder
 
-The `placeholder` attribute serves as a flexible variable that can be used in conjunction with the `loadingEffect` and `failureEffect` attributes. It accepts both predefined and dynamic values, which may vary depending on the type of entity specified.
+The `placeholder` prop serves as a flexible variable that can be used in conjunction with the `loadingEffect` and `failureEffect` props. It accepts both predefined and dynamic values, which may vary depending on the type of entity specified.
 
 ### Common Values:
 
@@ -279,7 +294,7 @@ _Common to All Types Except 'Banner' and 'Profile':_
 
 ## loadingEffect
 
-The `loadingEffect` attribute takes effect immediately when the component enters the viewport and continues until a response is received from the API. It offers various options to customize the visual behavior of the component during the loading stage:
+The `loadingEffect` prop takes effect immediately when the component enters the viewport and continues until a response is received from the API. It offers various options to customize the visual behavior of the component during the loading stage:
 
 **`hide:`** Hides the component.<br/>
 **`transparent:`** Makes the component transparent.<br/>
@@ -295,31 +310,31 @@ The "pulse:" prefix creates a pulsating effect for the option that follows it, a
 
 ## failureEffect
 
-The failureEffect attribute comes into play when an API request fails and there's insufficient local data to display the picture. This attribute allows you to define how the component should behave under such circumstances. It accepts the following values:
+The failureEffect prop comes into play when an API request fails and there's insufficient local data to display the picture. This prop allows you to define how the component should behave under such circumstances. It accepts the following values:
 
 **hide:** Hides the component.<br/>
 **transparent:** Makes the component transparent.<br/>
-**placeholder:** Displays a placeholder based on the strategy defined in the placeholder attribute.<br/>
+**placeholder:** Displays a placeholder based on the strategy defined in the placeholder prop.<br/>
 
-If you choose "placeholder," the specific graphic or color that appears will be determined by the configuration set in the placeholder attribute. This ensures a consistent visual experience even when data retrieval is unsuccessful.
+If you choose "placeholder," the specific graphic or color that appears will be determined by the configuration set in the placeholder prop. This ensures a consistent visual experience even when data retrieval is unsuccessful.
 
 ## censor
 
-The censor attribute allows you to blur images that violate `DavinciPic`'s policies, which are still under development. These policies will target images based on their levels of sensitivity. When finalized, the policies will have three categories:
+The censor prop allows you to blur images that violate `DavinciPic`'s policies, which are still under development. These policies will target images based on their levels of sensitivity. When finalized, the policies will have three categories:
 
 **sensitive:** Least severe. Blurs images flagged as sensitive.<br/>
 **inappropriate:** Moderate severity. Blurs images flagged as inappropriate or more severe.<br/>
 **copyright-violated:** Most severe. Blurs images flagged as violating copyright.
 
-Setting this attribute to a particular level will also consider all classes following that level as censored. For example, if you set censor="inappropriate", the component will blur images flagged as "inappropriate" as well as those flagged as `copyright-violated`.
+Setting this prop to a particular level will also consider all classes following that level as censored. For example, if you set censor="inappropriate", the component will blur images flagged as "inappropriate" as well as those flagged as `copyright-violated`.
 
-The default value for this attribute is `copyright-violated`.
+The default value for this prop is `copyright-violated`.
 
 ## delayResponseTime
 
-The delayResponseTime attribute is designed primarily for testing and demonstration purposes. It introduces a deliberate delay during the loading phase of the component. The delay duration is specified in milliseconds.
+The delayResponseTime prop is designed primarily for testing and demonstration purposes. It introduces a deliberate delay during the loading phase of the component. The delay duration is specified in milliseconds.
 
-## Attributes Types
+## Props Types
 
 ### PicsType
 
@@ -349,6 +364,12 @@ type PicsSensitivityType = "safe" | "sensitive" | "inappropriate" | "copyright-v
 
 ```typescript
 type PicsShapeType = "circle" | "square" | "smoothSquare";
+```
+
+### PicsLpTokensPositionType
+
+```typescript
+type PicsLpTokensPositionType = "intersected" | "intimate" | "merged";
 ```
 
 ## License

@@ -81,6 +81,9 @@ export const WrappedExamples = () => {
 					<CopySnippet title="Size 20px">
 						<DavinciPic type="token" network="hedera" address={exampleData.wrappedToken} size={20} context="app" />
 					</CopySnippet>
+					<CopySnippet title="Censored Inappropriate">
+						<DavinciPic type="token" network="hedera" address="TestWrapped" censor="inappropriate" size={64} context="app" />
+					</CopySnippet>
 				</section>
 
 				<h4>Loading Effects</h4>

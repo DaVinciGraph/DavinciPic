@@ -1,4 +1,4 @@
-import { PicsContextPositionType, PicsContextType, PicsSensitivityType, PicsShapeType, PicsType } from "./picsCommonTypes";
+import { PicsContextPositionType, PicsContextType, PicsLpTokensPositionType, PicsSensitivityType, PicsShapeType, PicsType } from "./picsCommonTypes";
 
 export type DavinciPicsPlaceholderType =
 	| "transparent"
@@ -72,6 +72,7 @@ export type DavinciPicTokenProps = (DavinciPicBasePropsOnline | DavinciPicBasePr
 	complexTokenType?: "lp" | "wrapped";
 	context?: PicsContextType;
 	contextPosition?: PicsContextPositionType;
+	lpTokensPosition?: PicsLpTokensPositionType;
 	dataContextTitle?: string;
 	dataContextPicUrl?: string;
 };
