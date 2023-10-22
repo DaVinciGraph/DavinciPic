@@ -92,7 +92,7 @@ const GenerateMergedLiquidityTokenSVG: React.FC<{
 				cy={tokenCircleData.cy}
 				r={tokenCircleData.r}
 				clipPath={`url(#half1-${uniqueID})`}
-				fill={data.token0.supportingBackgroundColor || "transparent"}
+				fill={data.token1.supportingBackgroundColor || "transparent"}
 			/>
 			{/* Images */}
 			<circle
