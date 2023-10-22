@@ -105,7 +105,7 @@ export const AppExamples = () => {
 							delayResponseTime={50000}
 						/>
 					</CopySnippet>
-					<CopySnippet title="Pulse Default No Logo Picture<">
+					<CopySnippet title="Pulse Default No Logo Picture">
 						<DavinciPic
 							type="app"
 							name={exampleData.app}

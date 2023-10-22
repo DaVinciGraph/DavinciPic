@@ -63,16 +63,16 @@ export function getMissingURL(type: PicsType, placeholder?: any): string {
 	return notFoundClasses[type === "profile" ? "profile" : "token"]["defaultBright"];
 }
 
-export const mustBeSensored = (sensoredType: string | undefined, checkingType: string | undefined): boolean => {
-	if (checkingType === undefined || sensoredType === undefined) return false;
+export const mustBeCensored = (censoredType: string | undefined, checkingType: string | undefined): boolean => {
+	if (checkingType === undefined || censoredType === undefined) return false;
 
-	sensoredType = sensoredType?.toUpperCase();
+	censoredType = censoredType?.toUpperCase();
 	checkingType = checkingType?.toUpperCase();
 
 	if (checkingType === "SAFE") return false;
 
-	if (checkingType === "SENSITIVE" && (sensoredType === "INAPPROPRIATE" || sensoredType === "COPYRIGHT-VIOLATED")) return false;
-	if (checkingType === "INAPPROPRIATE" && sensoredType === "COPYRIGHT-VIOLATED") return false;
+	if (checkingType === "SENSITIVE" && (censoredType === "INAPPROPRIATE" || censoredType === "COPYRIGHT-VIOLATED")) return false;
+	if (checkingType === "INAPPROPRIATE" && censoredType === "COPYRIGHT-VIOLATED") return false;
 
 	return true;
 };

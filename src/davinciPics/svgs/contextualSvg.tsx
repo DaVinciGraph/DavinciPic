@@ -1,5 +1,5 @@
 import { davinciPicsConfig } from "../";
-import { mustBeSensored } from "../modules/helpers";
+import { mustBeCensored } from "../modules/helpers";
 import { DavinciPicStatus, DavinciPicTokenProps } from "../types/props";
 import { PicsSensitivityType } from "../types/picsCommonTypes";
 import { DavinciPicsSvgCircle } from "../types/svg";
@@ -26,7 +26,7 @@ const GenerateContextualTokenSVG: React.FC<{
 	status,
 }): React.ReactElement => {
 	const uniqueID = `clip-${++davinciPicsConfig.counter}`;
-	const mustPictureBeSensored = mustBeSensored(options.censor, sensitivity);
+	const mustPictureBeCensored = mustBeCensored(options.censor, sensitivity);
 	const tokenCircle: DavinciPicsSvgCircle = { cx: 50, cy: 50, r: 40 };
 	const contextCircle = getContextualContextCircleData(options, tokenCircle);
 	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
@@ -38,12 +38,12 @@ const GenerateContextualTokenSVG: React.FC<{
 			viewBox="0 0 100 100"
 			width={options.size}
 			height={options.size}>
-			<Defs uniqueID={uniqueID} tokenCircle={tokenCircle} contextCircle={contextCircle} censor={mustPictureBeSensored} />
+			<Defs uniqueID={uniqueID} tokenCircle={tokenCircle} contextCircle={contextCircle} censor={mustPictureBeCensored} />
 
 			<Token
 				circle={tokenCircle}
 				uniqueID={uniqueID}
-				mustPictureBeSensored={mustPictureBeSensored}
+				mustPictureBeCensored={mustPictureBeCensored}
 				pictureUrl={pictureUrl}
 				title={title}
 				supportingBackgroundColor={supportingBackgroundColor}
@@ -100,7 +100,7 @@ const Defs = ({
 const Token = ({
 	circle,
 	uniqueID,
-	mustPictureBeSensored,
+	mustPictureBeCensored,
 	pictureUrl,
 	title,
 	supportingBackgroundColor,
@@ -110,7 +110,7 @@ const Token = ({
 }: {
 	circle: DavinciPicsSvgCircle;
 	uniqueID: string;
-	mustPictureBeSensored: boolean;
+	mustPictureBeCensored: boolean;
 	pictureUrl?: string;
 	title?: string;
 	supportingBackgroundColor?: string;
@@ -131,12 +131,12 @@ const Token = ({
 				width={2 * circle.r}
 				height={2 * circle.r}
 				clipPath={`url(#token-shape-${uniqueID})`}
-				filter={mustPictureBeSensored ? `url(#blur-${uniqueID})` : undefined}
+				filter={mustPictureBeCensored ? `url(#blur-${uniqueID})` : undefined}
 				preserveAspectRatio="xMidYMid slice"
 				href={pictureUrl || ""}
 			/>
 			<circle cx={circle.cx} cy={circle.cy} r={circle.r} fill="transparent" stroke={strokeColor} strokeWidth={strokeWidth}>
-				{!mustPictureBeSensored ? <title>{title}</title> : <></>}
+				{!mustPictureBeCensored ? <title>{title}</title> : <></>}
 			</circle>
 		</>
 	);

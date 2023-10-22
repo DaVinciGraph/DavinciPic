@@ -1,6 +1,6 @@
 import { BannerEntity } from "../types/entities";
 import { davinciPicsConfig } from "../";
-import { mustBeSensored } from "../modules/helpers";
+import { mustBeCensored } from "../modules/helpers";
 import { DavinciPicBannerProps, DavinciPicStatus } from "../types/props";
 
 const GenerateBannerSVG: React.FC<{
@@ -9,7 +9,7 @@ const GenerateBannerSVG: React.FC<{
 	status: DavinciPicStatus;
 }> = ({ data, options, status }): React.ReactElement => {
 	const uniqueID = `${++davinciPicsConfig.counter}`;
-	const mustPictureBeSensored = mustBeSensored(options.censor, data.sensitivity);
+	const mustPictureBeCensored = mustBeCensored(options.censor, data.sensitivity);
 
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 100">
@@ -17,7 +17,7 @@ const GenerateBannerSVG: React.FC<{
 				<clipPath id={`centerCircleClip_${uniqueID}`}>
 					<rect x="0" y="0" width="400" height="100" />
 				</clipPath>
-				{mustPictureBeSensored ? (
+				{mustPictureBeCensored ? (
 					<filter id={`blur-${uniqueID}`}>
 						<feGaussianBlur in="SourceGraphic" stdDeviation="7" />
 					</filter>
@@ -34,7 +34,7 @@ const GenerateBannerSVG: React.FC<{
 				width={400}
 				height={100}
 				clipPath={`url(#centerCircleClip_${uniqueID})`}
-				filter={mustPictureBeSensored ? `url(#blur-${uniqueID})` : undefined}
+				filter={mustPictureBeCensored ? `url(#blur-${uniqueID})` : undefined}
 				preserveAspectRatio="xMidYMid slice"
 				href={data.banner}
 			/>

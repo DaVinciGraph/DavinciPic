@@ -1,6 +1,6 @@
 import { LpTokenEntity } from "../types/entities";
 import { davinciPicsConfig } from "../";
-import { getContextData, mustBeSensored } from "../modules/helpers";
+import { getContextData, mustBeCensored } from "../modules/helpers";
 import { DavinciPicStatus, DavinciPicTokenProps } from "../types/props";
 import { DavinciPicsSvgCircle } from "../types/svg";
 import GenerateMergedLiquidityTokenSVG from "./MergedLiquiditySvg";
@@ -13,8 +13,8 @@ const GenerateLiquidityTokenSVG: React.FC<{
 	if (options.lpTokensPosition === "merged") {
 		return <GenerateMergedLiquidityTokenSVG data={data} options={options} status={status} />;
 	} else {
-		const mustPicture0BeSensored = mustBeSensored(options.censor, data.token0.sensitivity);
-		const mustPicture1BeSensored = mustBeSensored(options.censor, data.token1.sensitivity);
+		const mustPicture0BeCensored = mustBeCensored(options.censor, data.token0.sensitivity);
+		const mustPicture1BeCensored = mustBeCensored(options.censor, data.token1.sensitivity);
 		const uniqueID = `${++davinciPicsConfig.counter}`;
 
 		const contextData = getContextData(options, data);
@@ -42,15 +42,15 @@ const GenerateLiquidityTokenSVG: React.FC<{
 					token0CircleData={token0CircleData}
 					token1CircleData={token1CircleData}
 					contextCircleData={contextCircleData}
-					mustPicture0BeSensored={mustPicture0BeSensored}
-					mustPicture1BeSensored={mustPicture1BeSensored}
+					mustPicture0BeCensored={mustPicture0BeCensored}
+					mustPicture1BeCensored={mustPicture1BeCensored}
 				/>
 
 				<Token0
 					circleData={token0CircleData}
 					data={data}
 					uniqueID={uniqueID}
-					censor={mustPicture0BeSensored}
+					censor={mustPicture0BeCensored}
 					strokeWidth={strokeWidth}
 					strokeColor={options.strokeColor}
 					status={status}
@@ -60,7 +60,7 @@ const GenerateLiquidityTokenSVG: React.FC<{
 					circleData={token1CircleData}
 					data={data}
 					uniqueID={uniqueID}
-					censor={mustPicture1BeSensored}
+					censor={mustPicture1BeCensored}
 					strokeWidth={strokeWidth}
 					strokeColor={options.strokeColor}
 					status={status}
@@ -86,15 +86,15 @@ const Defs = ({
 	token0CircleData,
 	token1CircleData,
 	contextCircleData,
-	mustPicture0BeSensored,
-	mustPicture1BeSensored,
+	mustPicture0BeCensored,
+	mustPicture1BeCensored,
 }: {
 	uniqueID: string;
 	token0CircleData: DavinciPicsSvgCircle;
 	token1CircleData: DavinciPicsSvgCircle;
 	contextCircleData: any;
-	mustPicture0BeSensored: boolean;
-	mustPicture1BeSensored: boolean;
+	mustPicture0BeCensored: boolean;
+	mustPicture1BeCensored: boolean;
 }) => {
 	return (
 		<defs>
@@ -107,12 +107,12 @@ const Defs = ({
 			<clipPath id={`context-${uniqueID}`}>
 				<circle cx={contextCircleData.cx} cy={contextCircleData.cy} r={contextCircleData.r}></circle>
 			</clipPath>
-			{mustPicture0BeSensored ? (
+			{mustPicture0BeCensored ? (
 				<filter id={`blur0-${uniqueID}`}>
 					<feGaussianBlur in="SourceGraphic" stdDeviation="7" />
 				</filter>
 			) : null}
-			{mustPicture1BeSensored ? (
+			{mustPicture1BeCensored ? (
 				<filter id={`blur1-${uniqueID}`}>
 					<feGaussianBlur in="SourceGraphic" stdDeviation="7" />
 				</filter>

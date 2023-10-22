@@ -1,6 +1,6 @@
 import { LpTokenEntity } from "../types/entities";
 import { davinciPicsConfig } from "../";
-import { getContextData, mustBeSensored } from "../modules/helpers";
+import { getContextData, mustBeCensored } from "../modules/helpers";
 import { DavinciPicStatus, DavinciPicTokenProps } from "../types/props";
 import { ContextualContextShapes, getContextualContextCircleData } from "./contextualSvg";
 
@@ -9,8 +9,8 @@ const GenerateMergedLiquidityTokenSVG: React.FC<{
 	options: DavinciPicTokenProps;
 	status: DavinciPicStatus;
 }> = ({ data, options, status }): React.ReactElement => {
-	const mustPicture0BeSensored = mustBeSensored(options.censor, data.token0.sensitivity);
-	const mustPicture1BeSensored = mustBeSensored(options.censor, data.token1.sensitivity);
+	const mustPicture0BeCensored = mustBeCensored(options.censor, data.token0.sensitivity);
+	const mustPicture1BeCensored = mustBeCensored(options.censor, data.token1.sensitivity);
 	const uniqueID = `${++davinciPicsConfig.counter}`;
 
 	const contextData = getContextData(options, data);
@@ -44,14 +44,14 @@ const GenerateMergedLiquidityTokenSVG: React.FC<{
 					<circle cx={contextCircleData.cx} cy={contextCircleData.cy} r={contextCircleData.r}></circle>
 				</clipPath>
 				{/* Blur filters */}
-				{mustPicture0BeSensored ? (
+				{mustPicture0BeCensored ? (
 					<filter id={`blur0-${uniqueID}`}>
 						<feGaussianBlur in="SourceGraphic" stdDeviation="3" />
 					</filter>
 				) : (
 					<></>
 				)}
-				{mustPicture1BeSensored ? (
+				{mustPicture1BeCensored ? (
 					<filter id={`blur1-${uniqueID}`}>
 						<feGaussianBlur in="SourceGraphic" stdDeviation="3" />
 					</filter>
@@ -65,7 +65,7 @@ const GenerateMergedLiquidityTokenSVG: React.FC<{
 						y="0"
 						width={tokenCircleData.r * 2}
 						height={tokenCircleData.r * 2}
-						filter={mustPicture0BeSensored ? `url(#blur0-${uniqueID})` : ""}
+						filter={mustPicture0BeCensored ? `url(#blur0-${uniqueID})` : ""}
 					/>
 				</pattern>
 				<pattern id={`image1-${uniqueID}`} patternUnits="objectBoundingBox" width="1" height="1">
@@ -75,7 +75,7 @@ const GenerateMergedLiquidityTokenSVG: React.FC<{
 						y="0"
 						width={tokenCircleData.r * 2}
 						height={tokenCircleData.r * 2}
-						filter={mustPicture1BeSensored ? `url(#blur1-${uniqueID})` : ""}
+						filter={mustPicture1BeCensored ? `url(#blur1-${uniqueID})` : ""}
 					/>
 				</pattern>
 			</defs>
@@ -103,7 +103,7 @@ const GenerateMergedLiquidityTokenSVG: React.FC<{
 				strokeWidth={strokeWidth}
 				clipPath={`url(#half0-${uniqueID})`}
 				fill={`url(#image0-${uniqueID})`}>
-				{!mustPicture0BeSensored ? <title>{data.token0.title || data.token0.address}</title> : <></>}
+				{!mustPicture0BeCensored ? <title>{data.token0.title || data.token0.address}</title> : <></>}
 			</circle>
 			<circle
 				cx={tokenCircleData.cx}
@@ -113,7 +113,7 @@ const GenerateMergedLiquidityTokenSVG: React.FC<{
 				strokeWidth={strokeWidth}
 				clipPath={`url(#half1-${uniqueID})`}
 				fill={`url(#image1-${uniqueID})`}>
-				{!mustPicture1BeSensored ? <title>{data.token1.title || data.token1.address}</title> : <></>}
+				{!mustPicture1BeCensored ? <title>{data.token1.title || data.token1.address}</title> : <></>}
 			</circle>
 			<ContextualContextShapes
 				options={options}

@@ -1,5 +1,5 @@
 import { davinciPicsConfig } from "../";
-import { getShapeRadius, mustBeSensored } from "../modules/helpers";
+import { getShapeRadius, mustBeCensored } from "../modules/helpers";
 import { PicsSensitivityType } from "../types/picsCommonTypes";
 import { DavinciPicBannerProps, DavinciPicProps, DavinciPicStatus } from "../types/props";
 
@@ -12,7 +12,7 @@ const GenerateBaseSVG: React.FC<{
 	status: DavinciPicStatus;
 }> = ({ title, pictureUrl, sensitivity, supportingBackgroundColor, options, status }): React.ReactElement => {
 	const uniqueID = `${++davinciPicsConfig.counter}`;
-	const mustPictureBeSensored = mustBeSensored(options.censor, sensitivity);
+	const mustPictureBeCensored = mustBeCensored(options.censor, sensitivity);
 	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
 
 	return (
@@ -32,7 +32,7 @@ const GenerateBaseSVG: React.FC<{
 						rx={getShapeRadius(options.shape, 100)}
 						ry={getShapeRadius(options.shape, 100)}></rect>
 				</clipPath>
-				{mustPictureBeSensored ? (
+				{mustPictureBeCensored ? (
 					<filter id={`blur-${uniqueID}`}>
 						<feGaussianBlur in="SourceGraphic" stdDeviation="7" />
 					</filter>
@@ -55,7 +55,7 @@ const GenerateBaseSVG: React.FC<{
 				width={100 - strokeWidth}
 				height={100 - strokeWidth}
 				clipPath={`url(#centerCircleClip_${uniqueID})`}
-				filter={mustPictureBeSensored ? `url(#blur-${uniqueID})` : ""}
+				filter={mustPictureBeCensored ? `url(#blur-${uniqueID})` : ""}
 				preserveAspectRatio="xMidYMid slice"
 				href={pictureUrl}
 			/>
@@ -69,7 +69,7 @@ const GenerateBaseSVG: React.FC<{
 				fill="transparent"
 				stroke={options.strokeColor}
 				strokeWidth={strokeWidth}>
-				{!mustBeSensored ? <title>{title || ""}</title> : <></>}
+				{!mustPictureBeCensored ? <title>{title || ""}</title> : <></>}
 			</rect>
 		</svg>
 	);
