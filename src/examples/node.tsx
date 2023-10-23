@@ -165,7 +165,7 @@ export const NodeExamples = () => {
 						<DavinciPic
 							type="node"
 							network="hedera"
-							address={invalidAddress(exampleData.node)}
+							address={"0.0.123456"}
 							size={64}
 							loadingEffect={"pulse:#ccc"}
 							failureEffect={"hide"}
@@ -176,7 +176,7 @@ export const NodeExamples = () => {
 						<DavinciPic
 							type="node"
 							network="hedera"
-							address={invalidAddress(exampleData.node)}
+							address={"0.0.123456"}
 							size={64}
 							failureEffect={"transparent"}
 							loadingEffect={"pulse:#ccc"}
@@ -187,7 +187,7 @@ export const NodeExamples = () => {
 						<DavinciPic
 							type="node"
 							network="hedera"
-							address={invalidAddress(exampleData.node)}
+							address={"0.0.123456"}
 							size={64}
 							placeholder={"#ccc"}
 							failureEffect={"placeholder"}
@@ -199,7 +199,7 @@ export const NodeExamples = () => {
 						<DavinciPic
 							type="node"
 							network="hedera"
-							address={invalidAddress(exampleData.node)}
+							address={"0.0.123456"}
 							size={64}
 							placeholder={"randomColor"}
 							failureEffect={"placeholder"}
@@ -211,7 +211,7 @@ export const NodeExamples = () => {
 						<DavinciPic
 							type="node"
 							network="hedera"
-							address={invalidAddress(exampleData.node)}
+							address={"0.0.123456"}
 							size={64}
 							placeholder={"questionMarkBright"}
 							failureEffect={"placeholder"}
@@ -223,7 +223,7 @@ export const NodeExamples = () => {
 						<DavinciPic
 							type="node"
 							network="hedera"
-							address={invalidAddress(exampleData.node)}
+							address={"0.0.123456"}
 							size={64}
 							placeholder={"exclamationMarkDark"}
 							failureEffect={"placeholder"}
@@ -235,7 +235,7 @@ export const NodeExamples = () => {
 						<DavinciPic
 							type="node"
 							network="hedera"
-							address={invalidAddress(exampleData.node)}
+							address={"0.0.123456"}
 							size={64}
 							placeholder={"url(https://res.cloudinary.com/dq7dgsuu8/image/upload/v1684562031/icons/hedera_token_64_lhaycq.png)"}
 							failureEffect={"placeholder"}
