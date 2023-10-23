@@ -25,11 +25,11 @@ const GenerateContextualTokenSVG: React.FC<{
 	options,
 	status,
 }): React.ReactElement => {
+	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
 	const uniqueID = `clip-${++davinciPicsConfig.counter}`;
 	const mustPictureBeCensored = mustBeCensored(options.censor, sensitivity);
-	const tokenCircle: DavinciPicsSvgCircle = { cx: 50, cy: 50, r: 40 };
+	const tokenCircle: DavinciPicsSvgCircle = { cx: 50, cy: 50, r: (options.context === "none" ? 50 : 40) - strokeWidth };
 	const contextCircle = getContextualContextCircleData(options, tokenCircle);
-	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
 
 	return (
 		<svg
@@ -161,7 +161,7 @@ export const ContextualContextShapes = ({
 	strokeWidth: number;
 	status: DavinciPicStatus;
 }) => {
-	return options.context !== "none" ? (
+	return options.context !== "none" && (pic || bgColor !== "transparent") ? (
 		<>
 			{status === "failed" && pic ? (
 				<></>

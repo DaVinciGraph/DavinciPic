@@ -25,6 +25,7 @@ export const WrappedExamples = () => {
 							complexTokenType="wrapped"
 							address={invalidAddress(exampleData.wrappedToken)}
 							size={64}
+							context="none"
 							loadingEffect={"pulse:randomColor"}
 							dataTitle="Alternative Title"
 							dataPicUrl={exampleData.alternativePic}

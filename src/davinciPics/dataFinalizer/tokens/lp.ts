@@ -18,11 +18,11 @@ export const finalizeFailedLpData = (
 
 	if (initialData.app && options.context === "app") {
 		initialData.app.pic = options.dataContextPicUrl || "";
-		initialData.app.supportingBackgroundColor = "";
+		initialData.app.supportingBackgroundColor = "transparent";
 	}
 
 	initialData.network.pic = options.dataContextPicUrl || "";
-	initialData.network.supportingBackgroundColor = "";
+	initialData.network.supportingBackgroundColor = "transparent";
 
 	return initialData;
 };
@@ -37,47 +37,32 @@ export const finalizeSuccessfulLpData = (
 
 	remoteData.token0.title = remoteData.token0.title || token0Title;
 	remoteData.token0.pic = finalSuccessfulPictureUrl(remoteData.token0.pic, token0Pic, failedPlaceholderPicture);
-	remoteData.token0.supportingBackgroundColor = finalSuccessfulBgColor(remoteData.token0.supportingBackgroundColor, failedPlaceholderColor);
+	remoteData.token0.supportingBackgroundColor = finalSuccessfulBgColor(
+		remoteData.token0.supportingBackgroundColor,
+		remoteData.token0.pic,
+		failedPlaceholderColor
+	);
 
 	remoteData.token1.title = remoteData.token1.title || token1Title;
 	remoteData.token1.pic = finalSuccessfulPictureUrl(remoteData.token1.pic, token1Pic, failedPlaceholderPicture);
-	remoteData.token1.supportingBackgroundColor = finalSuccessfulBgColor(remoteData.token1.supportingBackgroundColor, failedPlaceholderColor);
+	remoteData.token1.supportingBackgroundColor = finalSuccessfulBgColor(
+		remoteData.token1.supportingBackgroundColor,
+		remoteData.token1.pic,
+		failedPlaceholderColor
+	);
 
 	if (remoteData.app) {
 		remoteData.app.title = remoteData.app?.title || options.dataContextTitle || "";
 		remoteData.app.pic = remoteData.app?.pic || options.dataContextPicUrl || "";
-		remoteData.app.supportingBackgroundColor = remoteData.app?.supportingBackgroundColor || "";
+		remoteData.app.supportingBackgroundColor = remoteData.app?.supportingBackgroundColor || "transparent";
 	}
 
 	remoteData.network.title = remoteData.network.title || options.dataContextTitle || "";
 	remoteData.network.pic = remoteData.network.pic || options.dataContextPicUrl || failedPlaceholderPicture;
-	remoteData.network.supportingBackgroundColor = remoteData.network.supportingBackgroundColor || "";
+	remoteData.network.supportingBackgroundColor = remoteData.network.supportingBackgroundColor || "transparent";
 
 	return remoteData;
 };
-
-// export const finalizeMismatchedLpData = (
-// 	options: DavinciPicTokenProps,
-// 	remoteData: LpTokenEntity,
-// 	failedPlaceholderColor: string,
-// 	failedPlaceholderPicture: string
-// ) => {
-// 	const { token0Pic, token1Pic } = getLocalLpData(options);
-// 	remoteData.token0.pic = finalSuccessfulPictureUrl(remoteData.token0.pic, token0Pic, failedPlaceholderPicture);
-// 	remoteData.token0.supportingBackgroundColor = finalSuccessfulBgColor(
-// 		remoteData.token0.supportingBackgroundColor,
-// 		remoteData.token0.pic,
-// 		failedPlaceholderColor
-// 	);
-
-// 	remoteData.token1.pic = finalSuccessfulPictureUrl(remoteData.token1.pic, token1Pic, failedPlaceholderPicture);
-// 	remoteData.token1.supportingBackgroundColor = finalSuccessfulBgColor(
-// 		remoteData.token1.supportingBackgroundColor,
-// 		remoteData.token1.pic,
-// 		failedPlaceholderColor
-// 	);
-// 	return remoteData;
-// };
 
 const getLocalLpData = (options: DavinciPicTokenProps) => {
 	let token0Pic = "",

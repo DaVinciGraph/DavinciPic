@@ -13,7 +13,11 @@ const finalizeBannerData = (
 	if (isBannerEntity(remoteData)) {
 		remoteData.title = remoteData.title || initialData.title;
 		remoteData.banner = finalSuccessfulPictureUrl(remoteData.banner, options.dataPicUrl, failedPlaceholderPicture);
-		remoteData.supportingBackgroundColor = finalSuccessfulBgColor(remoteData.supportingBackgroundColor, failedPlaceholderColor);
+		remoteData.supportingBackgroundColor = finalSuccessfulBgColor(
+			remoteData.supportingBackgroundColor,
+			remoteData.banner,
+			failedPlaceholderColor
+		);
 		return remoteData;
 	}
 

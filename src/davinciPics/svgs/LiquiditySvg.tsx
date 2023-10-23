@@ -216,7 +216,7 @@ const Context = ({
 	strokeColor?: string;
 	status: DavinciPicStatus;
 }) => {
-	if (data.type === "none") return <></>;
+	if (data.type === "none" || (!data.pic && data.supportingBackgroundColor === "transparent")) return <></>;
 
 	return (
 		<>

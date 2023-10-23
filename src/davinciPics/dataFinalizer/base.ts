@@ -14,7 +14,7 @@ const finalizeProfileData = <T extends PicsType>(
 	if (isProfileEntity(remoteData) || isNetworkEntity(remoteData) || isNodeEntity(remoteData) || isAppEntity(remoteData)) {
 		remoteData.title = remoteData.title || initialData.title;
 		remoteData.pic = finalSuccessfulPictureUrl(remoteData.pic, options.dataPicUrl, failedPlaceholderPicture);
-		remoteData.supportingBackgroundColor = finalSuccessfulBgColor(remoteData.supportingBackgroundColor, failedPlaceholderColor);
+		remoteData.supportingBackgroundColor = finalSuccessfulBgColor(remoteData.supportingBackgroundColor, remoteData.pic, failedPlaceholderColor);
 
 		return remoteData;
 	}

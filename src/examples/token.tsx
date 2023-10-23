@@ -21,6 +21,7 @@ export const TokenExamples = () => {
 							network="hedera"
 							address="0.0.64216"
 							size={64}
+							context="none"
 							loadingEffect={"pulse:randomColor"}
 							delayResponseTime={5000}
 							dataTitle="Alternative Title"

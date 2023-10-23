@@ -3,11 +3,11 @@ export const finalSuccessfulPictureUrl = (remotePictureUrl: string, localPicture
 };
 
 export const finalFailedPictureUrl = (localPictureUrl: string = "", failedPlaceholderPicture: string) => {
-	return localPictureUrl || failedPlaceholderPicture;
+	return localPictureUrl || failedPlaceholderPicture || "";
 };
 
-export const finalSuccessfulBgColor = (remoteColor: string, placeholderColor: string) => {
-	return remoteColor ? remoteColor || "transparent" : placeholderColor;
+export const finalSuccessfulBgColor = (remoteColor: string, remotePictureUrl: string, placeholderColor: string) => {
+	return remoteColor ? remoteColor : !remotePictureUrl ? placeholderColor : "transparent";
 };
 
 export const finalFailedBgColor = (finalPictureUrl: string, placeholderColor: string) => {
