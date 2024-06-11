@@ -1,6 +1,6 @@
 import { davinciPicsConfig } from "../";
 import { mustBeCensored } from "../modules/helpers";
-import { DavinciPicStatus, DavinciPicTokenProps } from "../types/props";
+import { DavinciPicContractProps, DavinciPicStatus, DavinciPicTokenProps } from "../types/props";
 import { PicsSensitivityType } from "../types/picsCommonTypes";
 import { DavinciPicsSvgCircle } from "../types/svg";
 
@@ -10,21 +10,11 @@ const GenerateContextualTokenSVG: React.FC<{
 	contextTitle?: string;
 	contextPictureUrl?: string;
 	sensitivity: PicsSensitivityType;
-	supportingBackgroundColor?: string;
+	bgColor?: string;
 	contextSupportingBackgroundColor?: string;
-	options: DavinciPicTokenProps;
+	options: DavinciPicTokenProps | DavinciPicContractProps;
 	status: DavinciPicStatus;
-}> = ({
-	title,
-	pictureUrl,
-	sensitivity,
-	contextTitle,
-	contextPictureUrl,
-	supportingBackgroundColor,
-	contextSupportingBackgroundColor,
-	options,
-	status,
-}): React.ReactElement => {
+}> = ({ title, pictureUrl, sensitivity, contextTitle, contextPictureUrl, bgColor, contextSupportingBackgroundColor, options, status }): React.ReactElement => {
 	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
 	const uniqueID = `clip-${++davinciPicsConfig.counter}`;
 	const mustPictureBeCensored = mustBeCensored(options.censor, sensitivity);
@@ -32,12 +22,7 @@ const GenerateContextualTokenSVG: React.FC<{
 	const contextCircle = getContextualContextCircleData(options, tokenCircle);
 
 	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			xmlnsXlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 100 100"
-			width={options.size}
-			height={options.size}>
+		<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" width={options.size} height={options.size}>
 			<Defs uniqueID={uniqueID} tokenCircle={tokenCircle} contextCircle={contextCircle} censor={mustPictureBeCensored} />
 
 			<Token
@@ -46,7 +31,7 @@ const GenerateContextualTokenSVG: React.FC<{
 				mustPictureBeCensored={mustPictureBeCensored}
 				pictureUrl={pictureUrl}
 				title={title}
-				supportingBackgroundColor={supportingBackgroundColor}
+				bgColor={bgColor}
 				strokeColor={options.strokeColor}
 				strokeWidth={strokeWidth}
 				status={status}
@@ -68,17 +53,7 @@ const GenerateContextualTokenSVG: React.FC<{
 
 export default GenerateContextualTokenSVG;
 
-const Defs = ({
-	uniqueID,
-	tokenCircle,
-	contextCircle,
-	censor,
-}: {
-	uniqueID: string;
-	tokenCircle: DavinciPicsSvgCircle;
-	contextCircle: DavinciPicsSvgCircle;
-	censor: boolean;
-}) => {
+const Defs = ({ uniqueID, tokenCircle, contextCircle, censor }: { uniqueID: string; tokenCircle: DavinciPicsSvgCircle; contextCircle: DavinciPicsSvgCircle; censor: boolean }) => {
 	return (
 		<defs>
 			<clipPath id={`token-shape-${uniqueID}`}>
@@ -103,7 +78,7 @@ const Token = ({
 	mustPictureBeCensored,
 	pictureUrl,
 	title,
-	supportingBackgroundColor,
+	bgColor,
 	strokeColor,
 	strokeWidth,
 	status,
@@ -113,18 +88,14 @@ const Token = ({
 	mustPictureBeCensored: boolean;
 	pictureUrl?: string;
 	title?: string;
-	supportingBackgroundColor?: string;
+	bgColor?: string;
 	strokeColor?: string;
 	strokeWidth: number;
 	status: DavinciPicStatus;
 }) => {
 	return (
 		<>
-			{status === "failed" && pictureUrl ? (
-				<></>
-			) : (
-				<circle cx={circle.cx} cy={circle.cy} r={circle.r - strokeWidth / 2} fill={supportingBackgroundColor} />
-			)}
+			{status === "failed" && pictureUrl ? <></> : <circle cx={circle.cx} cy={circle.cy} r={circle.r - strokeWidth / 2} fill={bgColor} />}
 			<image
 				x={circle.cx - circle.r}
 				y={circle.cy - circle.r}
@@ -134,10 +105,10 @@ const Token = ({
 				filter={mustPictureBeCensored ? `url(#blur-${uniqueID})` : undefined}
 				preserveAspectRatio="xMidYMid slice"
 				href={pictureUrl || ""}
-			/>
-			<circle cx={circle.cx} cy={circle.cy} r={circle.r} fill="transparent" stroke={strokeColor} strokeWidth={strokeWidth}>
+			>
 				{!mustPictureBeCensored ? <title>{title}</title> : <></>}
-			</circle>
+			</image>
+			<circle cx={circle.cx} cy={circle.cy} r={circle.r} fill="none" stroke={strokeColor} strokeWidth={strokeWidth}></circle>
 		</>
 	);
 };
@@ -152,7 +123,7 @@ export const ContextualContextShapes = ({
 	strokeWidth,
 	status,
 }: {
-	options: DavinciPicTokenProps;
+	options: DavinciPicTokenProps | DavinciPicContractProps;
 	contextCircle: DavinciPicsSvgCircle;
 	uniqueID: string;
 	pic?: string;
@@ -161,13 +132,9 @@ export const ContextualContextShapes = ({
 	strokeWidth: number;
 	status: DavinciPicStatus;
 }) => {
-	return options.context !== "none" && (pic || bgColor !== "transparent") ? (
+	return options.context !== "none" && (pic || bgColor !== "none") ? (
 		<>
-			{status === "failed" && pic ? (
-				<></>
-			) : (
-				<circle cx={contextCircle.cx} cy={contextCircle.cy} r={contextCircle.r - strokeWidth / 2} fill={bgColor || "transparent"} />
-			)}
+			{status === "failed" && pic ? <></> : <circle cx={contextCircle.cx} cy={contextCircle.cy} r={contextCircle.r - strokeWidth / 2} fill={bgColor || "none"} />}
 			<image
 				x={contextCircle.cx - contextCircle.r}
 				y={contextCircle.cy - contextCircle.r}
@@ -175,23 +142,18 @@ export const ContextualContextShapes = ({
 				height={2 * contextCircle.r}
 				clipPath={`url(#context-shape-${uniqueID})`}
 				preserveAspectRatio="xMidYMid slice"
-				href={pic}></image>
-			<circle
-				cx={contextCircle.cx}
-				cy={contextCircle.cy}
-				r={contextCircle.r}
-				fill="transparent"
-				stroke={options.strokeColor}
-				strokeWidth={strokeWidth}>
+				href={pic}
+			>
 				<title>{title}</title>
-			</circle>
+			</image>
+			<circle cx={contextCircle.cx} cy={contextCircle.cy} r={contextCircle.r} fill="none" stroke={options.strokeColor} strokeWidth={strokeWidth}></circle>
 		</>
 	) : (
 		<></>
 	);
 };
 
-export const getContextualContextCircleData = (options: DavinciPicTokenProps, tokenCircle: DavinciPicsSvgCircle) => {
+export const getContextualContextCircleData = (options: DavinciPicTokenProps | DavinciPicContractProps, tokenCircle: DavinciPicsSvgCircle) => {
 	const strokeWidth = options.strokeWidth || 0;
 	const contextCircleRadius = 20;
 	return {

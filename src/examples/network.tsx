@@ -4,13 +4,13 @@ import DavinciPic from "../davinciPics";
 
 export const NetworkExamples = () => {
 	return (
-		<article>
+		<article id="network">
 			<h1> Network </h1>
 
 			<main>
 				<section>
 					<CopySnippet title="Default">
-						<DavinciPic type="network" network="hedera" size={64} />
+						<DavinciPic type="network" network="hedera" theme="dark" size={64} />
 					</CopySnippet>
 					<CopySnippet title="Alternative Data">
 						<DavinciPic
@@ -24,14 +24,7 @@ export const NetworkExamples = () => {
 						/>
 					</CopySnippet>
 					<CopySnippet title="Offline Mode">
-						<DavinciPic
-							type="network"
-							network="hedera"
-							offlineMode
-							size={64}
-							dataTitle="Alternative Title"
-							dataPicUrl={exampleData.alternativePic}
-						/>
+						<DavinciPic type="network" network="hedera" offlineMode size={64} dataTitle="Alternative Title" dataPicUrl={exampleData.alternativePic} />
 					</CopySnippet>
 					<CopySnippet title="Green Stroke 4px">
 						<DavinciPic type="network" network="hedera" size={64} strokeWidth={4} strokeColor="green" />
@@ -65,33 +58,13 @@ export const NetworkExamples = () => {
 						<DavinciPic type="network" network="hedera" size={64} loadingEffect={"randomColor"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Default Question Mark Bright">
-						<DavinciPic
-							type="network"
-							network="hedera"
-							size={64}
-							placeholder={"questionMarkBright"}
-							loadingEffect={"placeholder"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="network" network="hedera" size={64} placeholder={"questionMarkBright"} loadingEffect={"placeholder"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Default Exclamation Mark Dark">
-						<DavinciPic
-							type="network"
-							network="hedera"
-							size={64}
-							placeholder={"exclamationMarkDark"}
-							loadingEffect={"placeholder"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="network" network="hedera" size={64} placeholder={"exclamationMarkDark"} loadingEffect={"placeholder"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Custom Url">
-						<DavinciPic
-							type="network"
-							network="hedera"
-							size={64}
-							loadingEffect={"url(https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif)"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="network" network="hedera" size={64} loadingEffect={"url(https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif)"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Pulse Random Color">
 						<DavinciPic type="network" network="hedera" size={64} loadingEffect={"pulse:randomColor"} delayResponseTime={50000} />
@@ -106,82 +79,29 @@ export const NetworkExamples = () => {
 						/>
 					</CopySnippet>
 					<CopySnippet title="Pulse Default No Logo Picture">
-						<DavinciPic
-							type="network"
-							network="hedera"
-							size={64}
-							placeholder={"default"}
-							loadingEffect={"pulse:placeholder"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="network" network="hedera" size={64} placeholder={"default"} loadingEffect={"pulse:placeholder"} delayResponseTime={50000} />
 					</CopySnippet>
 				</section>
 
 				<h4>Failure Effects</h4>
 				<section>
 					<CopySnippet title="Hide">
-						<DavinciPic
-							type="network"
-							network="heder"
-							size={64}
-							loadingEffect={"pulse:#ccc"}
-							failureEffect={"hide"}
-							delayResponseTime={3000}
-						/>
+						<DavinciPic type="network" network="heder" size={64} loadingEffect={"pulse:#ccc"} failureEffect={"hide"} delayResponseTime={3000} />
 					</CopySnippet>
 					<CopySnippet title="Transparent">
-						<DavinciPic
-							type="network"
-							network="heder"
-							size={64}
-							failureEffect={"transparent"}
-							loadingEffect={"pulse:#ccc"}
-							delayResponseTime={3000}
-						/>
+						<DavinciPic type="network" network="heder" size={64} failureEffect={"transparent"} loadingEffect={"pulse:#ccc"} delayResponseTime={3000} />
 					</CopySnippet>
 					<CopySnippet title="Fixed Color">
-						<DavinciPic
-							type="network"
-							network="heder"
-							size={64}
-							placeholder={"#ccc"}
-							failureEffect={"placeholder"}
-							loadingEffect={"pulse:#ccc"}
-							delayResponseTime={5000}
-						/>
+						<DavinciPic type="network" network="heder" size={64} placeholder={"#ccc"} failureEffect={"placeholder"} loadingEffect={"pulse:#ccc"} delayResponseTime={5000} />
 					</CopySnippet>
 					<CopySnippet title="Random Color">
-						<DavinciPic
-							type="network"
-							network="heder"
-							size={64}
-							placeholder={"randomColor"}
-							failureEffect={"placeholder"}
-							loadingEffect={"pulse:#ccc"}
-							delayResponseTime={5000}
-						/>
+						<DavinciPic type="network" network="heder" size={64} placeholder={"randomColor"} failureEffect={"placeholder"} loadingEffect={"pulse:#ccc"} delayResponseTime={5000} />
 					</CopySnippet>
 					<CopySnippet title="Default Question Mark Bright">
-						<DavinciPic
-							type="network"
-							network="heder"
-							size={64}
-							placeholder={"questionMarkBright"}
-							failureEffect={"placeholder"}
-							loadingEffect={"pulse:#ccc"}
-							delayResponseTime={3000}
-						/>
+						<DavinciPic type="network" network="heder" size={64} placeholder={"questionMarkBright"} failureEffect={"placeholder"} loadingEffect={"pulse:#ccc"} delayResponseTime={3000} />
 					</CopySnippet>
 					<CopySnippet title="Default Exclamation Mark Dark">
-						<DavinciPic
-							type="network"
-							network="heder"
-							size={64}
-							placeholder={"exclamationMarkDark"}
-							failureEffect={"placeholder"}
-							loadingEffect={"pulse:#ccc"}
-							delayResponseTime={3000}
-						/>
+						<DavinciPic type="network" network="heder" size={64} placeholder={"exclamationMarkDark"} failureEffect={"placeholder"} loadingEffect={"pulse:#ccc"} delayResponseTime={3000} />
 					</CopySnippet>
 					<CopySnippet title="Custom Url">
 						<DavinciPic

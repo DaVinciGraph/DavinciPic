@@ -1,4 +1,4 @@
-import { AppEntity, BannerEntity, LpTokenEntity, NetworkEntity, NodeEntity, ProfileEntity, TokenEntity, WrappedTokenEntity } from "./entities";
+import { AppEntity, BannerEntity, ContractEntity, LpTokenEntity, NetworkEntity, NodeEntity, PoolContractEntity, ProfileEntity, TokenEntity, WrappedTokenEntity } from "./entities";
 import {
 	PicsContextPositionType,
 	PicsContextType,
@@ -49,7 +49,14 @@ export function isLpTokenEntity(value: any): value is LpTokenEntity {
 }
 
 export function isWrappedTokenEntity(value: any): value is WrappedTokenEntity {
-	return value && value?.type === "WRAPPED" && value?.originalToken;
+	return value && value?.type === "WRAPPED";
+}
+
+export function isContractEntity(value: any): value is ContractEntity {
+	return value && value?.address;
+}
+export function isPoolContractEntity(value: any): value is PoolContractEntity {
+	return value && value?.isPool && value?.token0 && value?.token1;
 }
 
 export function isProfileEntity(value: any): value is ProfileEntity {
@@ -72,6 +79,6 @@ export function isAppEntity(value: any): value is AppEntity {
 	return value && value?.name;
 }
 
-export function isEntityResponseEmpty(obj: any): obj is {} {
+export function isEntityResponseEmpty(obj: any): obj is "" {
 	return !obj || Object.keys(obj).length === 0;
 }

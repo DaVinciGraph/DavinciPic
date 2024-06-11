@@ -5,7 +5,7 @@ import DavinciPic from "../davinciPics";
 const alternativeBannerPic = "https://i.pinimg.com/736x/58/2d/96/582d96a1df2d94bb439af1594639ccfe.jpg";
 export const BannerExamples = () => {
 	return (
-		<article>
+		<article id="banner">
 			<h1> Banner </h1>
 
 			<main>
@@ -25,14 +25,7 @@ export const BannerExamples = () => {
 						/>
 					</CopySnippet>
 					<CopySnippet title="Offline Mode">
-						<DavinciPic
-							type="banner"
-							network="hedera"
-							address={exampleData.account}
-							offlineMode
-							dataTitle="Alternative Title"
-							dataPicUrl={alternativeBannerPic}
-						/>
+						<DavinciPic type="banner" network="hedera" address={exampleData.account} offlineMode dataTitle="Alternative Title" dataPicUrl={alternativeBannerPic} />
 					</CopySnippet>
 				</section>
 
@@ -76,27 +69,14 @@ export const BannerExamples = () => {
 						/>
 					</CopySnippet>
 					<CopySnippet title="Custom Url">
-						<DavinciPic
-							type="banner"
-							network="hedera"
-							address={exampleData.account}
-							loadingEffect={`pulse:url(${alternativeBannerPic})`}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="banner" network="hedera" address={exampleData.account} loadingEffect={`pulse:url(${alternativeBannerPic})`} delayResponseTime={50000} />
 					</CopySnippet>
 				</section>
 
 				<h4>Failure Effects</h4>
 				<section className="banner">
 					<CopySnippet title="Hide">
-						<DavinciPic
-							type="banner"
-							network="hedera"
-							address={invalidAddress(exampleData.account)}
-							loadingEffect={"pulse:#ccc"}
-							failureEffect={"hide"}
-							delayResponseTime={3000}
-						/>
+						<DavinciPic type="banner" network="hedera" address={invalidAddress(exampleData.account)} loadingEffect={"pulse:#ccc"} failureEffect={"hide"} delayResponseTime={3000} />
 					</CopySnippet>
 					<CopySnippet title="Transparent">
 						<DavinciPic

@@ -3,7 +3,7 @@ import { getMissingURL, getRandomColor } from "../modules/helpers";
 import { DavinciPicPlaceholder, DavinciPicProps } from "../types/props";
 
 const getFailedPlaceholders = (options: DavinciPicProps, initialPlaceholder: DavinciPicPlaceholder): { color: string; url: string } => {
-	const placeholders = { color: "transparent", url: "" };
+	const placeholders = { color: "none", url: "" };
 	if (options.failureEffect === "transparent") {
 		return placeholders;
 	}

@@ -4,7 +4,7 @@ import DavinciPic from "../davinciPics";
 
 export const ProfileExamples = () => {
 	return (
-		<article>
+		<article id="profile">
 			<h1> Profile </h1>
 
 			<main>
@@ -32,27 +32,10 @@ export const ProfileExamples = () => {
 						/>
 					</CopySnippet>
 					<CopySnippet title="Offline Mode">
-						<DavinciPic
-							type="profile"
-							shape="square"
-							network="hedera"
-							address="0.0.64216"
-							offlineMode
-							size={64}
-							dataTitle="Alternative Title"
-							dataPicUrl={exampleData.alternativePic}
-						/>
+						<DavinciPic type="profile" shape="square" network="hedera" address="0.0.64216" offlineMode size={64} dataTitle="Alternative Title" dataPicUrl={exampleData.alternativePic} />
 					</CopySnippet>
 					<CopySnippet title="red Stroke 4px">
-						<DavinciPic
-							type="profile"
-							shape="smoothSquare"
-							network="hedera"
-							address={exampleData.account}
-							size={64}
-							strokeWidth={4}
-							strokeColor="#ff4747"
-						/>
+						<DavinciPic type="profile" shape="smoothSquare" network="hedera" address={exampleData.account} size={64} strokeWidth={4} strokeColor="#ff4747" />
 					</CopySnippet>
 					<CopySnippet title="Size 100px">
 						<DavinciPic type="profile" shape="smoothSquare" network="hedera" address={exampleData.account} size={100} />
@@ -65,48 +48,16 @@ export const ProfileExamples = () => {
 				<h4>Loading Effects</h4>
 				<section>
 					<CopySnippet title="Hide">
-						<DavinciPic
-							type="profile"
-							shape="square"
-							network="hedera"
-							address={exampleData.account}
-							size={64}
-							loadingEffect={"hide"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="profile" shape="square" network="hedera" address={exampleData.account} size={64} loadingEffect={"hide"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Transparent">
-						<DavinciPic
-							type="profile"
-							shape="square"
-							network="hedera"
-							address={exampleData.account}
-							size={64}
-							loadingEffect={"transparent"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="profile" shape="square" network="hedera" address={exampleData.account} size={64} loadingEffect={"transparent"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Fixed Color">
-						<DavinciPic
-							type="profile"
-							shape="square"
-							network="hedera"
-							address={exampleData.account}
-							size={64}
-							loadingEffect={"#ccc"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="profile" shape="square" network="hedera" address={exampleData.account} size={64} loadingEffect={"#ccc"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Random Color">
-						<DavinciPic
-							type="profile"
-							shape="square"
-							network="hedera"
-							address={exampleData.account}
-							size={64}
-							loadingEffect={"randomColor"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="profile" shape="square" network="hedera" address={exampleData.account} size={64} loadingEffect={"randomColor"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Default Bright">
 						<DavinciPic
@@ -144,15 +95,7 @@ export const ProfileExamples = () => {
 						/>
 					</CopySnippet>
 					<CopySnippet title="Pulse Random Color">
-						<DavinciPic
-							type="profile"
-							shape="square"
-							network="hedera"
-							address={exampleData.account}
-							size={64}
-							loadingEffect={"pulse:randomColor"}
-							delayResponseTime={50000}
-						/>
+						<DavinciPic type="profile" shape="square" network="hedera" address={exampleData.account} size={64} loadingEffect={"pulse:randomColor"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Pulse Custom Url">
 						<DavinciPic

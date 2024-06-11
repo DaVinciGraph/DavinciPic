@@ -1,6 +1,7 @@
 import { PicsShapeType, PicsType } from "../types/picsCommonTypes";
-import { DavinciPicTokenProps } from "../types/props";
-import { LpTokenEntity, WrappedTokenEntity } from "../types/entities";
+import { DavinciPicContractProps, DavinciPicTokenProps } from "../types/props";
+import { BannerEntity, ContractEntity, LpTokenEntity, NetworkEntity, NodeEntity, PoolContractEntity, ProfileEntity, TokenEntity, WrappedTokenEntity } from "../types/entities";
+import { isLpTokenEntity, isPoolContractEntity } from "../types/guards";
 
 const notFoundClasses: { [key: string]: { [key: string]: string } } = {
 	token: {
@@ -63,17 +64,16 @@ export function getMissingURL(type: PicsType, placeholder?: any): string {
 	return notFoundClasses[type === "profile" ? "profile" : "token"]["defaultBright"];
 }
 
-export const mustBeCensored = (censoredType: string | undefined, checkingType: string | undefined): boolean => {
+export const mustBeCensored = (censoredType: string[] | string | undefined, checkingType: string | undefined): boolean => {
 	if (checkingType === undefined || censoredType === undefined) return false;
 
-	censoredType = censoredType?.toUpperCase();
-	checkingType = checkingType?.toUpperCase();
+	if (typeof censoredType === "string") {
+		censoredType = censoredType.split(",");
+	}
 
-	if (checkingType === "SAFE") return false;
+	const censoredTypesArray = censoredType.map((x) => x.trim().toUpperCase());
 
-	if (checkingType === "SENSITIVE" && (censoredType === "INAPPROPRIATE" || censoredType === "COPYRIGHT-VIOLATED")) return false;
-	if (checkingType === "INAPPROPRIATE" && censoredType === "COPYRIGHT-VIOLATED") return false;
-
+	if (!censoredTypesArray.includes(checkingType)) return false;
 	return true;
 };
 
@@ -87,24 +87,55 @@ export function getShapeRadius(shape?: PicsShapeType, size: number = 100) {
 	return String(shape === "circle" ? size / 2 : shape === "smoothSquare" ? size * (15 / 100) : 0);
 }
 
-export const getContextData = (options: DavinciPicTokenProps, data: LpTokenEntity | WrappedTokenEntity) => {
+export const getContextData = (options: DavinciPicTokenProps | DavinciPicContractProps, data: LpTokenEntity | WrappedTokenEntity | PoolContractEntity) => {
 	if (options.context === "app" && data?.app) {
+		const type = isLpTokenEntity(data) ? "LP Token, Originated" : isPoolContractEntity(data) ? "Pool Contract, Deployed" : "Wrapped Token, Originated";
+
 		return {
 			type: "app",
-			pic: data.app.pic || "",
-			title: data.app.title ? `Originated by ${data.app.title}` : "",
-			supportingBackgroundColor: data.app.supportingBackgroundColor || "transparent",
+			pic: getThemedPictureUrl(data.app, options.theme!),
+			title: data.app.title ? `${type} by ${data.app.title}` : "",
+			bgColor: data.app.bgColor || "none",
 		};
 	}
 
 	if (options.context === "network" && data?.network) {
 		return {
 			type: "network",
-			pic: data.network.pic || "",
+			pic: getThemedPictureUrl(data.network, options.theme!),
 			title: data.network.title ? `Originated on ${data.network.title}` : "",
-			supportingBackgroundColor: data.network.supportingBackgroundColor || "transparent",
+			bgColor: data.network.bgColor || "none",
 		};
 	}
 
-	return { type: "none", pic: "", title: "", supportingBackgroundColor: "transparent" };
+	return { type: "none", pic: "", title: "", bgColor: "none" };
+};
+
+export const isTokenAllowedToHaveContext = (typeofToken: "lp" | "wrapped", options: DavinciPicTokenProps | DavinciPicContractProps) => {
+	if (options.type === "contract") return true;
+
+	if (options.showAppForType === "all" || options.showAppForType === typeofToken) return true;
+
+	return false;
+};
+
+export const getThemedPictureUrl = (
+	data: TokenEntity | LpTokenEntity | WrappedTokenEntity | ContractEntity | PoolContractEntity | ProfileEntity | BannerEntity | NetworkEntity | NodeEntity | {},
+	theme: "dark" | "light"
+) => {
+	if (theme === "dark") {
+		return (data as any)?.darkPic || (data as any)?.pic || "";
+	}
+
+	return (data as any)?.pic || (data as any)?.darkPic || "";
+};
+
+export const getThemedBgColor = (data: any, theme: "dark" | "light") => {
+	if (theme === "dark" && data?.darkPic) {
+		return (data as any)?.darkBgColor;
+	}
+
+	if (data?.pic) return (data as any)?.bgColor;
+
+	return "";
 };

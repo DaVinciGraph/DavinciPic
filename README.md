@@ -1,6 +1,6 @@
 # Introduction
 
-The `DavinciPic` react component is designed to securely and effortlessly interface with the DavinciPic API. It fetches and displays images of Hedera-based entities, such as tokens, accounts, nodes, as well as logos for other networks and dApps. To make it easier for users, these entities are loaded simply by specifying their network and address as props to the component. Additionally, it showcases liquidity pool (LP) and wrapped tokens when relevant references are available. Given that this component could be integrated into security-sensitive applications like digital wallets, it ensures secure data handling within the HTML. The component also offers a range of props for extensive customization. To optimize performance, it activates only when it enters the viewport, utilizing an intersection with a vertical margin of 200 pixels.
+The `DavinciPic` react component is designed to securely and effortlessly interface with the DavinciPic API. It fetches and displays images of Hedera-based entities, such as tokens, contracts, accounts, nodes, as well as logos for other networks and dApps. To make it easier for users, these entities are loaded simply by specifying their network and address as props to the component. Additionally, it showcases liquidity provider (LP) and wrapped tokens and pool contracts when relevant references are available. Given that this component could be integrated into security-sensitive applications like digital wallets, it ensures secure data handling within the HTML. The component also offers a range of props for extensive customization. To optimize performance, it activates only when it enters the viewport, utilizing an intersection with a vertical margin of 200 pixels.
 
 ### Live Examples
 
@@ -50,6 +50,8 @@ Define the type, specify the network and address, you are good to go.
 
 ```HTML
 <DavinciPic type="token" network="hedera" address="hbar"></DavinciPic>
+<DavinciPic type="token" network="hedera" address="hbar" theme="dark"></DavinciPic>
+<DavinciPic type="contract" network="hedera" address="0.0.2174361" theme="dark"></DavinciPic>
 <DavinciPic type="token" network="hedera" address="0.0.2997829"></DavinciPic>
 <DavinciPic type="profile" network="hedera" address="0.0.1518714"></DavinciPic>
 <DavinciPic type="banner" network="hedera" address="0.0.1518714"></DavinciPic>
@@ -78,14 +80,22 @@ mandatory fields are marked by asterisk symbol:
 | [network](#network)\*                     | string                                                | All except type "app"               |
 | [address](#address)\*                     | string                                                | All except type "network" and "app" |
 | [name](#name)\*                           | string                                                | Only applies to type "app"          |
+| [theme](#theme)                           | "dark" or "light"                                     | All                                 |
 | [dataTitle](#datatitle)                   | string                                                | All                                 |
 | [dataPicUrl](#datapicurl)                 | string                                                | All                                 |
-| [context](#context)                       | [PicsContextType](#picscontexttype)                   | Only applies to type "token"        |
-| [contextPosition](#contextposition)       | [PicsContextPositionType](#picscontextpositiontype)   | Only applies to type "token"        |
-| [dataContextTitle](#datacontexttitle)     | string                                                | only applies to type "token"        |
-| [dataContextPicUrl](#datacontextpicurl)   | string                                                | only applies to type "token"        |
-| [complexTokenType](#complextokentype)     | "lp" or "wrapped"                                     | only applies to type "token"        |
-| [lpTokensPosition](#lptokensposition)     | [PicsLpTokensPositionType](#picslptokenspositiontype) | only applies to type "token"        |
+| [dataBgColor](#databgcolor)               | string                                                | All                                 |
+| [context](#context)                       | [PicsContextType](#picscontexttype)                   | Only "token" & "contract"           |
+| [contextPosition](#contextposition)       | [PicsContextPositionType](#picscontextpositiontype)   | Only "token" & "contract"           |
+| [dataContextTitle](#datacontexttitle)     | string                                                | only "token" & "contract"           |
+| [dataContextPicUrl](#datacontextpicurl)   | string                                                | only "token" & "contract"           |
+| [dataContextBgColor](#datacontextbgcolor) | string                                                | only "token" & "contract"           |
+| [complexTokenType](#complextokentype)     | "lp" or "wrapped"                                     | only "token"                        |
+| [isPool](#ispool)                         | boolean                                               | only "contract"                     |
+| [topToken](#toptoken)                     | "zero" or "one"                                       | only "contract"                     |
+| [showAppsForType](#showappsfortype)       | "lp" or "wrapped" or "all"                            | only "token"                        |
+| [showPairApps](#showpairapps)             | boolean                                               | only "token" & "contract"           |
+| [lpTokensPosition](#lptokensposition)     | [PicsLpTokensPositionType](#picslptokenspositiontype) | only "token" & "contract"           |
+| [poolPairPosition](#poolPairPosition)     | [PicsLpTokensPositionType](#picslptokenspositiontype) | only "token" & "contract"           |
 | [offlineMode](#offlinemode)               | boolean                                               | All                                 |
 | [size](#size)                             | number                                                | All except type "banner"            |
 | [shape](#shape)                           | [PicsShapeType](#picsshapetype)                       | Has no effect of complex tokens     |
@@ -104,6 +114,7 @@ The type prop specifies the kind of entity that the DavinciPic component should 
 ### Accepted Values:
 
 **token:** Chooses a token or a cryptocurrency.<br/>
+**contract:** Chooses a contract.<br/>
 **profile:** Chooses a profile picture, commonly used for user avatars or identities.<br/>
 **banner:** Specifies a banner image associated with a Hedera account, often used for headings or decorative profiles.<br/>
 **node:** Relates to a Hedera node.<br/>
@@ -118,7 +129,7 @@ The network prop identifies the blockchain or network to which the entity belong
 
 ### Applicability:
 
-This prop is applicable to all entity types except for "app", as apps are considered network-agnostic. In other words, when the type prop is set to "app", the network prop will not have any effect.
+network prop is applicable to all entity types except for "app", as apps are considered network-agnostic. In other words, when the type prop is set to "app", the network prop will not have any effect.
 
 By specifying the network prop, you can ensure that the DavinciPic component loads the correct entity belonging to the designated network.
 
@@ -149,6 +160,23 @@ The `name` prop is specifically designed for use when the `type` prop is set to 
 <DavinciPic type="app" name="hashport"></DavinciPic>
 ```
 
+## theme
+
+The `theme` prop allows you to toggle between `light` and `dark` themes for the displayed entity. When an entity fetched from the API includes dark pictures and background colors, setting this prop to dark will display those dark features. If the entity does not contain dark pictures and colors, the light theme will be used instead.
+
+> This prop doesn't have any effect on profile and banners.
+
+### Benefits of Themes
+
+**Dark Theme:** Enhances the display of entities designed with dark visuals, providing better contrast and visual appeal in dark-mode applications.
+
+**Light Theme:** Ensures clarity and readability for entities designed with lighter visuals, suitable for standard or light-mode applications. (light is the default theme of the component)
+
+```HTML
+<DavinciPic type="token" network="hedera" address="hbar" theme="dark"></DavinciPic>
+<DavinciPic type="token" network="hedera" address="hbar" theme="light"></DavinciPic>
+```
+
 ## dataTitle
 
 The `dataTitle` prop allows you to manually set a title that appears when the user hovers over the element. This alternative title will only be used if the returned entity lacks an associated title.
@@ -166,6 +194,16 @@ The dataPicUrl prop allows you to provide an alternative image URL for the entit
 ```HTML
 <DavinciPic type="token" network="hedera" address="hbar" dataTitle="HBAR" dataPicUrl="...relative/absolute path..."></DavinciPic>
 <DavinciPic type="token" network="hedera" address="0.0.1062796" dataTitle="token0Title|token1Title" dataPicUrl="token0Url|token1Url"></DavinciPic>
+```
+
+## dataBgColor
+
+The dataBgColor prop allows you to specify a fallback background color for the displayed image if the data received from the API does not include one. This can be a hex code (e.g., #FF5733), an RGB value (e.g., rgb(255, 87, 51)), or a color name (e.g., red). For LP tokens, you can specify two colors separated by a pipe symbol (|).
+
+```HTML
+<DavinciPic type="token" network="hedera" address="hbar" dataBgColor="#FF5733"></DavinciPic>
+<DavinciPic type="token" network="hedera" address="0.0.1062796" dataBgColor="#FF5733|#33FF57"></DavinciPic>
+
 ```
 
 ## context
@@ -199,11 +237,50 @@ This can be useful for providing additional information or clarification about t
 
 The `dataContextPicUrl` prop serves a similar purpose to the `dataPicUrl` prop, but it specifically targets the context picture. If you have a local image that you'd like to display as the context picture (e.g., a network or app logo), you can specify its URL using this prop. This way, the specified image will be loaded as the context picture if the API doesn't provide one.
 
+## dataContextBgColor
+
+The `dataContextBgColor` prop similar to `dataBgColor` prop, allows you to specify a fallback background color for the displayed context image if the data received from the API does not include one. This can be a hex code (e.g., #FF5733), an RGB value (e.g., rgb(255, 87, 51)).
+
 ## complexTokenType
 
 The `complexTokenType` prop allows you to explicitly specify the type of a complex token, which could either be a Liquidity Pool (LP) token or a Wrapped token. This is particularly useful for customizing the loading and failure templates of the component, as the actual type of complex tokens is generally not known until the API response is received. Acceptable values for this prop are `lp` for Liquidity Pool tokens and `wrapped` for Wrapped tokens.
 
 By setting this prop, you can ensure that the loading and failure templates are appropriately tailored even before the API response arrives.
+
+## isPool
+
+The `isPool` props acts ac `complexTokenType` for contracts.
+
+## topToken
+
+The `topToken` prop determines which token in an LP (Liquidity provider) token pair appears on top of the other in the display. Accepted values are `zero` for Token0 and `one` for Token1.
+
+### Accepted Values:
+
+**zero:** Display Token0 on top.<br/>
+**one:** Display Token1 on top.<br/>
+
+## showAppsForType
+
+The `showAppsForType` prop allows you to control the display of application context specifically for LP (Liquidity Pool) and Wrapped tokens. You can choose to show the application context for only LP tokens, only Wrapped tokens, or for both types. By default, this prop is set to "all". This prop is applicable exclusively to tokens.
+
+### Accepted Values:
+
+**lp:** Show application context only for LP tokens.<br/>
+**wrapped:** Show application context only for Wrapped tokens.<br/>
+**all**: (default) show application context for both lp and wrapped tokens.<br/>
+
+## showPairApps
+
+The `showPairApps` prop is designed to control how the context is displayed for LP (Liquidity Pool) tokens. Given that an LP token is based on two other tokens, each potentially originating from different applications, this prop offers flexibility in presentation. This is particularly useful for decentralized exchanges (DEXs) that may prefer to show the applications of the pair tokens instead of the LP token's application. This is especially beneficial in scenarios where both tokens in the pair point to the same original token (e.g., USDC - USDC[HTS]).
+
+> This prop works only for token and contracts.
+
+### Accepted Values:
+
+**true:** show the pair tokens' applications as context.<br/>
+**false:** don't show the pair tokens' applications.<br/>
+**when_identical:** Show the pair tokens' applications only if both tokens point to the same original token.
 
 ## lpTokensPosition
 
@@ -214,6 +291,10 @@ This prop controls the positioning of the liquidity pair (LP) tokens' logos in t
 **intimate:** This option brings the two token logos closer together. Useful when you want to display LP tokens in a more compact space.
 
 **merged:** This merges both tokens into a single circle, divided down the middle. One side will display the token0 picture, and the other side will display the token1 picture.
+
+## poolPairPosition
+
+The `poolPairPosition` acts exactly like `lpTokensPosition` only for contracts.
 
 ### Note on Small Display Sizes:
 
@@ -320,15 +401,20 @@ If you choose "placeholder," the specific graphic or color that appears will be 
 
 ## censor
 
-The censor prop allows you to blur images that violate `DavinciPic`'s policies, which are still under development. These policies will target images based on their levels of sensitivity. When finalized, the policies will have three categories:
+The `censor` prop allows you to blur images based on their sensitivity levels according to DavinciPic's policies. These policies categorize images into different levels of sensitivity:
 
+**uncategorized:** entities which are not categorized inot any of the classes.<br/>
 **sensitive:** Least severe. Blurs images flagged as sensitive.<br/>
 **inappropriate:** Moderate severity. Blurs images flagged as inappropriate or more severe.<br/>
-**copyright-violated:** Most severe. Blurs images flagged as violating copyright.
+**copyright-violated:** Most severe. Blurs images flagged as violating copyright.<br/>
+You can specify the levels of sensitivity to censor by providing an array of sensitivity types or a string containing them separated by commas. Images matching any of the specified sensitivity types will be blurred.
 
-Setting this prop to a particular level will also consider all classes following that level as censored. For example, if you set censor="inappropriate", the component will blur images flagged as "inappropriate" as well as those flagged as `copyright-violated`.
+### Accepted Values:
 
-The default value for this prop is `copyright-violated`.
+**Array:** ["sensitive", "inappropriate"]<br/>
+**String:** "sensitive,inappropriate"
+
+> By default copyright-violated entities are censored
 
 ## delayResponseTime
 
@@ -339,13 +425,31 @@ The delayResponseTime prop is designed primarily for testing and demonstration p
 ### PicsType
 
 ```typescript
-type PicsType = "token" | "profile" | "banner" | "node" | "network" | "app";
+type PicsType = "token" | "contract" | "profile" | "banner" | "node" | "network" | "app";
 ```
 
 ### PicsContextType
 
 ```typescript
 type PicsContextType = "none" | "app" | "network";
+```
+
+### PicsComplexTokenType
+
+```typescript
+type PicsComplexTokenType = "lp" | "wrapped";
+```
+
+### PicsShowPairAppsType
+
+```typescript
+type PicsShowPairAppsType = true | false | "when_identical";
+```
+
+### PicsTopTokenType
+
+```typescript
+type PicsTopTokenType = "zero" | "one";
 ```
 
 ### PicsContextPositionType
@@ -357,13 +461,19 @@ type PicsContextPositionType = "topRight" | "topLeft" | "bottomRight" | "bottomL
 ### PicsSensitivityType
 
 ```typescript
-type PicsSensitivityType = "safe" | "sensitive" | "inappropriate" | "copyright-violated";
+type PicsSensitivityType = "safe" | "uncategorized" | "sensitive" | "inappropriate" | "copyright-violated";
 ```
 
 ### PicsShapeType
 
 ```typescript
 type PicsShapeType = "circle" | "square" | "smoothSquare";
+```
+
+### showAppForType
+
+```typescript
+type showAppForType = "all" | "lp" | "wrapped";
 ```
 
 ### PicsLpTokensPositionType

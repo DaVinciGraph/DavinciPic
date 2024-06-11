@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState, ReactElement } from "react";
 import { DavinciPicProps, DavinciPicStatus } from "./types/props";
 import { DavinciPicEntity } from "./types/entities";
 import PicsSvgGenerator from "./modules/svgGenerator";
@@ -8,22 +8,43 @@ import finalizeData from "./dataFinalizer";
 import { isEntityResponseEmpty } from "./types/guards";
 
 export let davinciPicsConfig = {
-	apiUrl: "https://davincigraph.art/api/v1",
+	apiUrl: "https://s1.pics.davincigraph.io/api/v2",
+	backupApiUrl: "https://s2.pics.davincigraph.io/api/v2",
 	counter: 0,
 	colorRegex: /#(?:[0-9A-Fa-f]{3}){1,2}|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|transparent/,
 };
 
-const DavinciPic: React.FC<DavinciPicProps> = (props) => {
+const defaultValues = {
+	size: 100,
+	strokeWidth: 0,
+	strokeColor: "gray",
+	offlineMode: false,
+	censor: "copyright-violated",
+	placeholder: "default",
+	context: "app",
+	contextPosition: "bottomRight",
+	loadingEffect: "transparent",
+	failureEffect: "placeholder",
+	lpTokensPosition: "intersected",
+	poolPairPosition: "intersected",
+	isPool: false,
+	theme: "light",
+	showPairApps: "when_identical",
+	showAppForType: "all",
+	topToken: "one",
+	noCache: false,
+	dataBgColor: "",
+	dataContextBgColor: "",
+};
+
+const DavinciPic: React.FC<DavinciPicProps> = (initialProps): ReactElement => {
+	const props: DavinciPicProps = { ...defaultValues, ...initialProps } as DavinciPicProps;
 	const elementRef = useRef(null);
 	const [data, setData] = useState<DavinciPicEntity>();
 	const [status, setStatus] = useState<DavinciPicStatus>("loading");
 	const [opacity, setOpacity] = useState(1);
 	const [placeholders] = useState(
-		getPlaceholders(
-			((!props.loadingEffect || props.loadingEffect.endsWith("placeholder") ? props.placeholder : props.loadingEffect) as string) ||
-				"transparent",
-			props.type
-		)
+		getPlaceholders(((!props.loadingEffect || props.loadingEffect.endsWith("placeholder") ? props.placeholder : props.loadingEffect) as string) || "transparent", props.type)
 	);
 
 	useEffect(() => {
@@ -73,7 +94,7 @@ const DavinciPic: React.FC<DavinciPicProps> = (props) => {
 
 					if (props.offlineMode) {
 						setStatus("success");
-						setData(finalizeData(initalData, {}, props, placeholders));
+						setData(finalizeData(initalData, "", props, placeholders));
 					} else {
 						const remoteData = await davinciPicsLoad(props);
 						setStatus(!isEntityResponseEmpty(remoteData) || props.dataPicUrl ? "success" : "failed");
@@ -81,7 +102,7 @@ const DavinciPic: React.FC<DavinciPicProps> = (props) => {
 					}
 				} catch (error: any) {
 					setStatus("interrupted");
-					console.error(`DavinciPics: ${error.message}`);
+					console.error(`DavinciPics: ${error.message}`, error);
 				}
 
 				observer.unobserve(entry.target);
@@ -97,7 +118,7 @@ const DavinciPic: React.FC<DavinciPicProps> = (props) => {
 		});
 	};
 
-	const style: CSSProperties = { display: "inline-block", verticalAlign: "top", transition: "opacity 1s", opacity };
+	const style: CSSProperties = { transition: "opacity 1s", opacity };
 
 	if (props.type === "banner") {
 		style.width = "100%";
@@ -106,37 +127,15 @@ const DavinciPic: React.FC<DavinciPicProps> = (props) => {
 		style.height = props.size;
 	}
 
-	const mustHide =
-		(props.loadingEffect === "hide" && status === "loading") ||
-		(props.failureEffect === "hide" && status === "failed") ||
-		status === "interrupted";
+	const mustHide = (props.loadingEffect === "hide" && status === "loading") || (props.failureEffect === "hide" && status === "failed") || status === "interrupted";
 
-	const mustGetTransparent =
-		(props.loadingEffect === "transparent" && status === "loading") || (props.failureEffect === "transparent" && status === "failed") || !data;
+	const mustGetTransparent = (props.loadingEffect === "transparent" && status === "loading") || (props.failureEffect === "transparent" && status === "failed") || !data;
 
 	return (
-		<span ref={elementRef}>
-			{mustHide ? (
-				<></>
-			) : (
-				<span style={style}>{mustGetTransparent ? <></> : <PicsSvgGenerator data={data} options={props} status={status} />}</span>
-			)}
+		<span ref={elementRef} style={props?.type !== "banner" ? { display: "inline-flex", alignItems: "center" } : {}}>
+			{mustHide ? <></> : <span style={style}>{mustGetTransparent ? <></> : <PicsSvgGenerator data={data} options={props} status={status} />}</span>}
 		</span>
 	);
-};
-
-DavinciPic.defaultProps = {
-	size: 100,
-	strokeWidth: 0,
-	strokeColor: "gray",
-	offlineMode: false,
-	censor: "copyright-violated",
-	placeholder: "default",
-	context: "app",
-	contextPosition: "bottomRight",
-	loadingEffect: "transparent",
-	failureEffect: "placeholder",
-	lpTokensPosition: "intersected",
 };
 
 export default DavinciPic;

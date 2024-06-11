@@ -65,16 +65,7 @@ export const WrappedExamples = () => {
 						<DavinciPic type="token" network="hedera" address={exampleData.wrappedToken} size={64} strokeWidth={4} strokeColor="green" />
 					</CopySnippet>
 					<CopySnippet title="Different Context position">
-						<DavinciPic
-							type="token"
-							network="hedera"
-							address={exampleData.wrappedToken}
-							size={64}
-							context="app"
-							contextPosition="topLeft"
-							strokeWidth={4}
-							strokeColor="green"
-						/>
+						<DavinciPic type="token" network="hedera" address={exampleData.wrappedToken} size={64} context="app" contextPosition="topLeft" strokeWidth={4} strokeColor="green" />
 					</CopySnippet>
 					<CopySnippet title="Size 100px">
 						<DavinciPic type="token" network="hedera" address={exampleData.wrappedToken} size={100} />

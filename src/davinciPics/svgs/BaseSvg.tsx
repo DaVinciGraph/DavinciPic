@@ -7,21 +7,16 @@ const GenerateBaseSVG: React.FC<{
 	title: string;
 	pictureUrl: string;
 	sensitivity: PicsSensitivityType;
-	supportingBackgroundColor?: string;
+	bgColor?: string;
 	options: Exclude<DavinciPicProps, DavinciPicBannerProps>;
 	status: DavinciPicStatus;
-}> = ({ title, pictureUrl, sensitivity, supportingBackgroundColor, options, status }): React.ReactElement => {
+}> = ({ title, pictureUrl, sensitivity, bgColor, options, status }): React.ReactElement => {
 	const uniqueID = `${++davinciPicsConfig.counter}`;
 	const mustPictureBeCensored = mustBeCensored(options.censor, sensitivity);
 	const strokeWidth = options.strokeWidth && status === "success" ? options.strokeWidth : 0;
 
 	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			xmlnsXlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 100 100"
-			width={options.size}
-			height={options.size}>
+		<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" width={options.size} height={options.size}>
 			<defs>
 				<clipPath id={`centerCircleClip_${uniqueID}`}>
 					<rect
@@ -30,7 +25,8 @@ const GenerateBaseSVG: React.FC<{
 						width={100 - strokeWidth}
 						height={100 - strokeWidth}
 						rx={getShapeRadius(options.shape, 100)}
-						ry={getShapeRadius(options.shape, 100)}></rect>
+						ry={getShapeRadius(options.shape, 100)}
+					></rect>
 				</clipPath>
 				{mustPictureBeCensored ? (
 					<filter id={`blur-${uniqueID}`}>
@@ -47,7 +43,7 @@ const GenerateBaseSVG: React.FC<{
 				height={100 - strokeWidth}
 				rx={getShapeRadius(options.shape, 100)}
 				ry={getShapeRadius(options.shape, 100)}
-				fill={supportingBackgroundColor || "transparent"}
+				fill={bgColor || "none"}
 			/>
 			<image
 				x={strokeWidth / 2}
@@ -58,7 +54,9 @@ const GenerateBaseSVG: React.FC<{
 				filter={mustPictureBeCensored ? `url(#blur-${uniqueID})` : ""}
 				preserveAspectRatio="xMidYMid slice"
 				href={pictureUrl}
-			/>
+			>
+				{!mustPictureBeCensored ? <title>{title || ""}</title> : <></>}
+			</image>
 			<rect
 				x={strokeWidth / 2}
 				y={strokeWidth / 2}
@@ -66,11 +64,10 @@ const GenerateBaseSVG: React.FC<{
 				height={100 - strokeWidth}
 				rx={getShapeRadius(options.shape, 100)}
 				ry={getShapeRadius(options.shape, 100)}
-				fill="transparent"
+				fill="none"
 				stroke={options.strokeColor}
-				strokeWidth={strokeWidth}>
-				{!mustPictureBeCensored ? <title>{title || ""}</title> : <></>}
-			</rect>
+				strokeWidth={strokeWidth}
+			></rect>
 		</svg>
 	);
 };

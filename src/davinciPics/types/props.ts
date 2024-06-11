@@ -1,4 +1,15 @@
-import { PicsContextPositionType, PicsContextType, PicsLpTokensPositionType, PicsSensitivityType, PicsShapeType, PicsType } from "./picsCommonTypes";
+import {
+	PicsComplexTokenType,
+	PicsContextPositionType,
+	PicsContextType,
+	PicsLpTokensPositionType,
+	PicsSensitivityType,
+	PicsShapeType,
+	PicsShowAppForTypeType,
+	PicsShowPairAppsType,
+	PicsTopTokenType,
+	PicsType,
+} from "./picsCommonTypes";
 
 export type DavinciPicsPlaceholderType =
 	| "transparent"
@@ -47,13 +58,16 @@ export type DavinciPicBaseProps = {
 	size?: number;
 	strokeWidth?: number;
 	strokeColor?: string;
-	censor?: PicsSensitivityType;
+	censor?: string | PicsSensitivityType[];
 	dataTitle?: string;
 	dataPicUrl?: string;
+	dataBgColor?: string;
 	placeholder?: DavinciPicsPlaceholderType;
 	loadingEffect?: DavinciPicOnLoadingType;
 	failureEffect?: DavinciPicOnFailedType;
 	delayResponseTime?: number;
+	theme?: "light" | "dark";
+	noCache?: boolean; // pretty expensive action
 };
 
 type DavinciPicBasePropsOnline = DavinciPicBaseProps & {
@@ -69,23 +83,34 @@ type DavinciPicBasePropsOffline = DavinciPicBaseProps & {
 /*  Davinci Pics Token Type  */
 export type DavinciPicTokenProps = (DavinciPicBasePropsOnline | DavinciPicBasePropsOffline) & {
 	type: "token";
-	complexTokenType?: "lp" | "wrapped";
+	complexTokenType?: PicsComplexTokenType;
 	context?: PicsContextType;
 	contextPosition?: PicsContextPositionType;
 	lpTokensPosition?: PicsLpTokensPositionType;
+	showAppForType?: PicsShowAppForTypeType;
+	showPairApps?: PicsShowPairAppsType;
+	topToken?: PicsTopTokenType;
 	dataContextTitle?: string;
 	dataContextPicUrl?: string;
+	dataContextBgColor?: string;
+};
+
+export type DavinciPicContractProps = (DavinciPicBasePropsOnline | DavinciPicBasePropsOffline) & {
+	type: "contract";
+	isPool?: boolean;
+	context?: PicsContextType;
+	contextPosition?: PicsContextPositionType;
+	poolPairPosition?: PicsLpTokensPositionType;
+	showPairApps?: PicsShowPairAppsType;
+	topToken?: PicsTopTokenType;
+	dataContextTitle?: string;
+	dataContextPicUrl?: string;
+	dataContextBgColor?: string;
 };
 
 export type DavinciPicProfileProps = (DavinciPicBasePropsOnline | DavinciPicBasePropsOffline) & {
 	type: "profile";
-	placeholder?:
-		| "default"
-		| "transparent"
-		| "defaultBright"
-		| "defaultDark"
-		| "randomColor"
-		| Omit<string, "default" | "transparent" | "defaultBright" | "defaultDark" | "randomColor">;
+	placeholder?: "default" | "transparent" | "defaultBright" | "defaultDark" | "randomColor" | Omit<string, "default" | "transparent" | "defaultBright" | "defaultDark" | "randomColor">;
 };
 
 export type DavinciPicBannerProps = (
@@ -104,21 +129,12 @@ export type DavinciPicNetworkProps = (Omit<DavinciPicBasePropsOnline, "address">
 	type: "network";
 };
 
-export type DavinciPicAppProps = (
-	| Omit<DavinciPicBasePropsOnline, "address" | "network">
-	| Omit<DavinciPicBasePropsOffline, "address" | "network">
-) & {
+export type DavinciPicAppProps = (Omit<DavinciPicBasePropsOnline, "address" | "network"> | Omit<DavinciPicBasePropsOffline, "address" | "network">) & {
 	type: "app";
 	name: string;
 };
 
-export type DavinciPicProps =
-	| DavinciPicTokenProps
-	| DavinciPicProfileProps
-	| DavinciPicBannerProps
-	| DavinciPicNodeProps
-	| DavinciPicNetworkProps
-	| DavinciPicAppProps;
+export type DavinciPicProps = DavinciPicTokenProps | DavinciPicContractProps | DavinciPicProfileProps | DavinciPicBannerProps | DavinciPicNodeProps | DavinciPicNetworkProps | DavinciPicAppProps;
 
 export type DavinciPicPlaceholder = {
 	color: string;

@@ -2,30 +2,29 @@ import { exampleData, invalidAddress } from "../App";
 import { CopySnippet } from "../Copy";
 import DavinciPic from "../davinciPics";
 
-export const LPExamples = () => {
+export const PoolExamples = () => {
 	return (
 		<article>
-			<h1> LP Token </h1>
+			<h1> Pool Contract </h1>
 
 			<main>
 				<section>
 					<CopySnippet title="With No Context">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} context="none" size={64} />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} context="none" size={64} />
 					</CopySnippet>
 
 					<CopySnippet title="With App Context">
-						<DavinciPic type="token" theme="dark" network="hedera" address={exampleData.lpToken} context="app" size={64} />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} context="app" size={64} />
 					</CopySnippet>
-
 					<CopySnippet title="With Network Context">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} context="network" size={64} />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} context="network" size={64} />
 					</CopySnippet>
 					<CopySnippet title="Alternative Data">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							complexTokenType="lp"
-							address={invalidAddress(exampleData.lpToken)}
+							isPool={true}
+							address={invalidAddress(exampleData.poolContract)}
 							size={64}
 							loadingEffect={"pulse:randomColor"}
 							delayResponseTime={5000}
@@ -35,10 +34,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Alternative Data With Context">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							complexTokenType="lp"
-							address={invalidAddress(exampleData.lpToken)}
+							isPool={true}
+							address={invalidAddress(exampleData.poolContract)}
 							size={64}
 							strokeWidth={4}
 							strokeColor="red"
@@ -52,9 +51,9 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Offline Mode">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
+							address={invalidAddress(exampleData.poolContract)}
 							context="network"
 							offlineMode
 							size={64}
@@ -65,72 +64,42 @@ export const LPExamples = () => {
 						/>
 					</CopySnippet>
 					<CopySnippet title="Intimate Position">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} context="app" size={64} lpTokensPosition="intimate" />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} context="app" size={64} poolPairPosition="intimate" />
 					</CopySnippet>
 					<CopySnippet title="Merged Position">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} context="app" size={64} lpTokensPosition="merged" />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} context="app" size={64} poolPairPosition="merged" />
 					</CopySnippet>
 					<CopySnippet title="Merged Position Without Context">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} complexTokenType="lp" context="none" size={64} lpTokensPosition="merged" />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} isPool={true} context="none" size={64} poolPairPosition="merged" />
 					</CopySnippet>
 					<CopySnippet title="Green Stroke 4px">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} size={64} strokeWidth={4} strokeColor="green" />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} size={64} strokeWidth={4} strokeColor="green" />
 					</CopySnippet>
 					<CopySnippet title="Different Context position">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} size={64} context="app" contextPosition="topLeft" />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} size={64} context="app" contextPosition="topLeft" />
 					</CopySnippet>
 					<CopySnippet title="Size 100px">
-						<DavinciPic type="token" network="hedera" context="none" showPairApps address={exampleData.lpToken} size={100} />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} size={100} />
 					</CopySnippet>
 					<CopySnippet title="Size 20px">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} size={20} />
-					</CopySnippet>
-					<CopySnippet title="Censored">
-						<DavinciPic type="token" network="hedera" address="TestLiquidity" censor="inappropriate" size={64} />
-					</CopySnippet>
-					<CopySnippet title="Censored">
-						<DavinciPic type="token" network="hedera" address="TestLiquidity" lpTokensPosition="merged" censor="inappropriate" size={64} />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} size={20} />
 					</CopySnippet>
 					<CopySnippet title="Show Pair Tokens App">
-						<DavinciPic
-							type="token"
-							network="hedera"
-							address="0.0.1080236"
-							context="none"
-							showPairApps={true}
-							topToken="zero"
-							contextPosition="bottomRight"
-							censor="inappropriate"
-							size={64}
-						/>
-					</CopySnippet>
-					<CopySnippet title="Custom Context Callback">
-						<DavinciPic
-							type="token"
-							network="hedera"
-							address="0.0.1080236"
-							context="none"
-							showPairApps={true}
-							topToken="zero"
-							theme="dark"
-							contextPosition="bottomRight"
-							censor="inappropriate"
-							size={64}
-						/>
+						<DavinciPic type="contract" network="hedera" showPairApps={true} address="0.0.3948521" size={64} />
 					</CopySnippet>
 				</section>
 
 				<h4>Loading Effects</h4>
 				<section>
 					<CopySnippet title="Hide">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} complexTokenType="lp" context="network" size={64} loadingEffect={"hide"} delayResponseTime={50000} />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} isPool={true} context="network" size={64} loadingEffect={"hide"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Transparent">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
+							address={exampleData.poolContract}
+							isPool={true}
 							context="network"
 							size={64}
 							loadingEffect={"transparent"}
@@ -138,15 +107,15 @@ export const LPExamples = () => {
 						/>
 					</CopySnippet>
 					<CopySnippet title="Fixed Color">
-						<DavinciPic type="token" network="hedera" address={exampleData.lpToken} complexTokenType="lp" context="network" size={64} loadingEffect={"#ccc"} delayResponseTime={50000} />
+						<DavinciPic type="contract" network="hedera" address={exampleData.poolContract} isPool={true} context="network" size={64} loadingEffect={"#ccc"} delayResponseTime={50000} />
 					</CopySnippet>
 					<CopySnippet title="Random Color">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							lpTokensPosition="intimate"
-							complexTokenType="lp"
+							address={exampleData.poolContract}
+							poolPairPosition="intimate"
+							isPool={true}
 							context="network"
 							size={64}
 							loadingEffect={"randomColor"}
@@ -155,10 +124,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Default Question Mark Bright">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
+							address={exampleData.poolContract}
+							isPool={true}
 							context="network"
 							size={64}
 							placeholder={"questionMarkBright"}
@@ -168,10 +137,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Default Exclamation Mark Dark">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
+							address={exampleData.poolContract}
+							isPool={true}
 							context="network"
 							size={64}
 							placeholder={"exclamationMarkDark"}
@@ -181,11 +150,11 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Default Exclamation Mark Dark & Merged">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
-							lpTokensPosition="merged"
+							address={exampleData.poolContract}
+							isPool={true}
+							poolPairPosition="merged"
 							context="network"
 							size={64}
 							placeholder={"exclamationMarkDark"}
@@ -195,10 +164,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Custom Url">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
+							address={exampleData.poolContract}
+							isPool={true}
 							context="network"
 							size={64}
 							loadingEffect={"url(https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif)"}
@@ -207,10 +176,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Pulse Random Color">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
+							address={exampleData.poolContract}
+							isPool={true}
 							context="network"
 							size={64}
 							loadingEffect={"pulse:randomColor"}
@@ -219,10 +188,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Pulse Custom Url">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
+							address={exampleData.poolContract}
+							isPool={true}
 							context="network"
 							size={64}
 							loadingEffect={"pulse:url(https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif)"}
@@ -231,10 +200,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Pulse Default No Logo Picture">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
+							address={exampleData.poolContract}
+							isPool={true}
 							context="network"
 							size={64}
 							placeholder={"default"}
@@ -244,11 +213,11 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Default & merged">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={exampleData.lpToken}
-							complexTokenType="lp"
-							lpTokensPosition="merged"
+							address={exampleData.poolContract}
+							isPool={true}
+							poolPairPosition="merged"
 							context="network"
 							size={64}
 							placeholder={"default"}
@@ -262,10 +231,10 @@ export const LPExamples = () => {
 				<section>
 					<CopySnippet title="Hide">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
-							complexTokenType="lp"
+							address={invalidAddress(exampleData.poolContract)}
+							isPool={true}
 							size={64}
 							loadingEffect={"pulse:#ccc"}
 							failureEffect={"hide"}
@@ -274,10 +243,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Transparent">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
-							complexTokenType="lp"
+							address={invalidAddress(exampleData.poolContract)}
+							isPool={true}
 							size={64}
 							failureEffect={"transparent"}
 							loadingEffect={"pulse:#ccc"}
@@ -286,11 +255,11 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Fixed Color">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
-							lpTokensPosition="merged"
-							complexTokenType="lp"
+							address={invalidAddress(exampleData.poolContract)}
+							poolPairPosition="merged"
+							isPool={true}
 							size={64}
 							placeholder={"#ccc"}
 							failureEffect={"placeholder"}
@@ -300,11 +269,11 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Random Color">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
-							lpTokensPosition="intimate"
-							complexTokenType="lp"
+							address={invalidAddress(exampleData.poolContract)}
+							poolPairPosition="intimate"
+							isPool={true}
 							size={64}
 							placeholder={"randomColor"}
 							failureEffect={"placeholder"}
@@ -314,10 +283,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Default Question Mark Bright">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
-							complexTokenType="lp"
+							address={invalidAddress(exampleData.poolContract)}
+							isPool={true}
 							size={64}
 							placeholder={"questionMarkBright"}
 							failureEffect={"placeholder"}
@@ -327,10 +296,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Default Exclamation Mark Dark">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
-							complexTokenType="lp"
+							address={invalidAddress(exampleData.poolContract)}
+							isPool={true}
 							size={64}
 							placeholder={"exclamationMarkDark"}
 							failureEffect={"placeholder"}
@@ -340,10 +309,10 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Custom Url">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
-							complexTokenType="lp"
+							address={invalidAddress(exampleData.poolContract)}
+							isPool={true}
 							size={64}
 							placeholder={"url(https://res.cloudinary.com/dq7dgsuu8/image/upload/v1684562031/icons/hedera_token_64_lhaycq.png)"}
 							failureEffect={"placeholder"}
@@ -353,11 +322,11 @@ export const LPExamples = () => {
 					</CopySnippet>
 					<CopySnippet title="Custom Url & Merged">
 						<DavinciPic
-							type="token"
+							type="contract"
 							network="hedera"
-							address={invalidAddress(exampleData.lpToken)}
-							complexTokenType="lp"
-							lpTokensPosition="merged"
+							address={invalidAddress(exampleData.poolContract)}
+							isPool={true}
+							poolPairPosition="merged"
 							size={64}
 							placeholder={"url(https://res.cloudinary.com/dq7dgsuu8/image/upload/v1684562031/icons/hedera_token_64_lhaycq.png)"}
 							failureEffect={"placeholder"}

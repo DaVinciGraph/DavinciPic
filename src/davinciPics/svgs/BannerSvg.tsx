@@ -23,11 +23,7 @@ const GenerateBannerSVG: React.FC<{
 					</filter>
 				) : null}
 			</defs>
-			{status === "failed" && data.banner ? (
-				<></>
-			) : (
-				<rect x="0" y="0" width="400" height="100" fill={data.supportingBackgroundColor || "transparent"} />
-			)}
+			{status === "failed" && data.banner ? <></> : <rect x="0" y="0" width="400" height="100" fill={data.bgColor || "none"} />}
 			<image
 				x={0}
 				y={0}
@@ -38,7 +34,7 @@ const GenerateBannerSVG: React.FC<{
 				preserveAspectRatio="xMidYMid slice"
 				href={data.banner}
 			/>
-			<rect x="0" y="0" width="400" height="100" fill="transparent" />
+			<rect x="0" y="0" width="400" height="100" fill="none" />
 		</svg>
 	);
 };
